@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Blogify.ai
-Plugin URI:   http://bilassiddiq.com
+Plugin URI:   http://blogify.ai
 Description:  This plugin adds posts in your wordpress site from Blogify.ai
 Version:      1.0
 Author:       Abu Haider Siddiq
@@ -56,12 +56,14 @@ function create_post_callback($request) {
  */
 
  function custom_settings_page() {
+    $dir_path = plugins_url( "blogify/favicon.ico", "" );
     add_menu_page(
         'Blogify Settings', // Page Title
         'Blogify Settings', // Menu Title
         'manage_options', // Capability (who can access)
         'custom-settings', // Menu Slug
-        'custom_settings_callback' // Callback function to display settings
+        'custom_settings_callback', // Callback function to display settings
+        $dir_path
     );
 }
 add_action('admin_menu', 'custom_settings_page');
@@ -70,13 +72,13 @@ function custom_settings_callback() {
     ?>
     <div class="wrap">
         <h2>Custom Settings</h2>
-        <form method="post" action="options.php">
+        <div>
             <?php
-            settings_fields('custom_settings_group'); // Use the settings group name
+            // settings_fields('custom_settings_group'); // Use the settings group name
             do_settings_sections('custom-settings'); // Use the menu slug
-            submit_button();
+            // submit_button();
             ?>
-        </form>
+        </div>
     </div>
     <?php
 }
@@ -96,9 +98,29 @@ function custom_section_callback() {
 }
 
 function custom_option_callback() {
+    $random = generateRandomString(10);
+    if( get_option( "blogify_client_secret") == ""){
+        update_option('blogify_client_secret', $random);
+    }
     $option = get_option('blogify_client_secret');
-    echo '<input type="text" name="blogify_client_secret" value="' . esc_attr($option) . '" />';
+    // $url = site_url();
+    $client_copy = site_url() . "?secret=" .$option ;
+    echo "<span>".$client_copy."</span>";
+    // echo '<input type="text" name="blogify_client_secret" value="' . esc_attr($option) . '" />';
 }
 add_action('admin_init', 'custom_settings_fields');
+
+/**
+ * Generate Random string
+ */
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[random_int(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 
 ?>
