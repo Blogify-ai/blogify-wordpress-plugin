@@ -1,3 +1,3 @@
 # Blogify WordPress Plugin 2.0
 
-[Tutorial Link](https://blogify.ai/login?redirect_to=/dashboard/settings/wordpressorg-connect)
+[Tutorial Link](https://blogify.ai/login?redirectTo=/dashboard/settings/wordpressorg-connect)
