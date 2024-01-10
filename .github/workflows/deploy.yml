@@ -1,0 +1,51 @@
+name: Deploy to S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: us-east-1
+
+      - name: Create dist folders
+        run: |
+          mkdir -p dist/prod/src
+          mkdir -p dist/test/src
+          mkdir -p dist/dev/src
+
+      - name: Create .env files
+        run: |
+          echo "BLOGIFY_CLIENT_BASEURL=https://blogify.ai" > dist/prod/src/.env
+          echo "BLOGIFY_CLIENT_BASEURL=https://test.blogify.ai" > dist/test/src/.env
+          echo "BLOGIFY_CLIENT_BASEURL=https://localhost:7000" > dist/dev/src/.env
+
+      - name: Copy plugin file for each environment
+        run: |
+          cp plugin/blogify.php dist/prod/src
+          cp plugin/blogify.php dist/test/src
+          cp plugin/blogify.php dist/dev/src
+
+      - name: Create zip files
+        run: |
+          cd dist/prod && zip -r ../../blogify-wordpress-plugin.zip src && cd ../../
+          cd dist/test && zip -r ../../blogify-wordpress-plugin-test.zip src && cd ../../
+          cd dist/dev && zip -r ../../blogify-wordpress-plugin-dev.zip src && cd ../../
+
+      - name: Upload to S3
+        run: |
+          aws s3 cp blogify-wordpress-plugin.zip s3://blogifyai/plugins/
+          aws s3 cp blogify-wordpress-plugin-test.zip s3://blogifyai/plugins/
+          aws s3 cp blogify-wordpress-plugin-dev.zip s3://blogifyai/plugins/
