@@ -46,6 +46,6 @@ jobs:
 
       - name: Upload to S3
         run: |
-          aws s3 cp blogify-wordpress-plugin.zip s3://blogifyai/plugins/
-          aws s3 cp blogify-wordpress-plugin-test.zip s3://blogifyai/plugins/
-          aws s3 cp blogify-wordpress-plugin-dev.zip s3://blogifyai/plugins/
+          aws s3 cp blogify-wordpress-plugin.zip s3://blogifyai/plugins/ --acl public-read
+          aws s3 cp blogify-wordpress-plugin-test.zip s3://blogifyai/plugins/ --acl public-read
+          aws s3 cp blogify-wordpress-plugin-dev.zip s3://blogifyai/plugins/ --acl public-read
