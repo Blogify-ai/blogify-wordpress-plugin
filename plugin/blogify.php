@@ -180,14 +180,14 @@ function get_sites_callback(WP_REST_Request $request): WP_REST_Response {
      */
     function custom_option_callback(): void {
         if (get_site_option("blogify_client_secret") == "") {
-            update_site_option('blogify_client_secret', v4uuid());
+            update_site_option('blogify_client_secret', v4uuid() . 'multisite');
         }
         $env = parse_ini_file('.env');
         $blogify_client_baseurl = $env['BLOGIFY_CLIENT_BASEURL'];
 
         $option = get_site_option('blogify_client_secret');
-        $url_with_secret = site_url() . "?secret=" . $option . "&is_multisite=" . is_multisite();
-        $url_to_open = $blogify_client_baseurl . "/login?redirectTo=/dashboard/settings/wordpressorg-connect?wordpressorg=" . $url_with_secret;
+        $url_with_secret = site_url() . "?secret=" . $option;
+        $url_to_open = $blogify_client_baseurl . "/dashboard/settings/wordpressorg-connect?wordpressorg=" . $url_with_secret;
         echo '<input type="button" class="button button-primary" value="Connect" onclick="window.open( \'' . $url_to_open . '\', \'_blank\');" />';
     }
 
@@ -378,7 +378,7 @@ function get_sites_callback(WP_REST_Request $request): WP_REST_Response {
         
         $option = get_option('blogify_client_secret');
         $url_with_secret = site_url() . "?secret=" .$option;
-        $url_to_open= $blogify_client_baseurl . "/login?redirectTo=/dashboard/settings/wordpressorg-connect?wordpressorg=" .$url_with_secret;
+        $url_to_open= $blogify_client_baseurl . "/dashboard/settings/wordpressorg-connect?wordpressorg=" .$url_with_secret;
         echo '<input type="button" class="button button-primary" value="Connect" onclick="window.open( \''.$url_to_open.'\', \'_blank\');" />';
 
     }
