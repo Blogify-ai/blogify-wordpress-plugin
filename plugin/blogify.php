@@ -79,8 +79,9 @@ if (is_multisite()) {
         $post_id = wp_insert_post($post_data);
 
         if ($post_id) {
+            $blog_link = get_permalink($post_id);
             restore_current_blog();
-            return new WP_REST_Response(array('message' => 'Post created successfully', 'blog_link' => get_permalink($post_id)), 200);
+            return new WP_REST_Response(array('message' => 'Post created successfully', 'blog_link' => $blog_link), 200);
         } else {
             restore_current_blog();
             return new WP_Error('failed_create_post', 'Failed to create post', array('status' => 500));
