@@ -180,7 +180,7 @@ function get_sites_callback(WP_REST_Request $request): WP_REST_Response {
      */
     function custom_option_callback(): void {
         if (get_site_option("blogify_client_secret") == "") {
-            update_option('blogify_client_secret', v4uuid());
+            update_site_option('blogify_client_secret', v4uuid());
         }
         $env = parse_ini_file('.env');
         $blogify_client_baseurl = $env['BLOGIFY_CLIENT_BASEURL'];
