@@ -1,4 +1,5 @@
 <?php
+// بسم الله الرحمن الرحيم
 /**
  * Plugin Name
  *
@@ -21,6 +22,14 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Update URI:        blogify-ai
  */
+
+namespace PixelShadow\Blogify;
+
+defined( 'ABSPATH' ) or die( 'Hey, you can\'t access this file, you silly human!' );
+
+require_once plugin_dir_path(__FILE__) . '/api/authentication.php';
+
+
 
 /**
  * Generates a Version 4 (random) UUID.
