@@ -23,7 +23,6 @@ function v4uuid(): string {
     $e = str_pad(dechex(random_int(0x0000_0000_0000, 0xffff_ffff_ffff)), '0', STR_PAD_LEFT);
     return "$a$b$c$d$e";
 }
-
 if (is_multisite()) {
 
     /**
