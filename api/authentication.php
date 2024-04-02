@@ -3,9 +3,55 @@
 
 namespace PixelShadow\Blogify;
 
-defined( 'ABSPATH' ) or die( 'Hey, you can\'t access this file, you silly human!' );
+defined('ABSPATH') or die('Hey, you can\'t access this file, you silly human!');
 
+/**
+ * Registers a new user on the provided base URL.
+ *
+ * The function throws an exception on various error conditions, including:
+ *  - API call failure.
+ *  - Missing access token in the response.
+ *  - Signup failure with a specific message from the response.
+ *
+ * On successful signup, the function returns the access token retrieved from the
+ * response.
+ *
+ * @param string $baseUrl The base URL of the API endpoint.
+ * @param string $email The user's email address.
+ * @param string $password The user's password.
+ * @param string $name The user's name.
+ * @param string $business_name The user's business name.
+ * @param string $found_us_from How the user found the platform.
+ *
+ * @throws Exception If an error occurs during signup.
+ *
+ * @return string The access token on successful signup. Empty string on failure.
+ */
+function signup(string $baseUrl, string $email, string $password, string $name, string $business_name, string $found_us_from): string
+{
+    $response = wp_remote_post(
+        $baseUrl . '/auth/signup',
+        array(
+            'body' => json_encode(array('email' => $email, 'password' => $password,
+                'name' => $name, 'businessName' => $business_name, 'foundUsFrom' => $found_us_from)),
+            'headers' => array('Content-Type' => 'application/json'),
+        )
+    );
+    if (!is_wp_error($response)) {
+        $body = wp_remote_retrieve_body($response);
+        $data = json_decode($body, true);
 
+        if (isset($data['access_token'])) {
+            return $data['access_token'];
+        } elseif (isset($data['message'])) {
+            throw new \Exception('Signup failed with message: ' . $data['message']);
+        } else {
+            throw new \Exception('Signup failed: Access token not found in response body');
+        }
+    } else {
+        throw new \Exception($response->get_error_message(), $response->get_error_code());
+    }
+}
 
 /**
  * Retrieves the access token by making a POST request to the specified endpoint with the given email and password.
