@@ -60,10 +60,13 @@ function signup(string $baseUrl, string $email, string $password, string $name, 
  * @param string $email The user's email address.
  * @param string $password The user's password.
  * @return string The access_token after successful login
- * @throws WP_Error The WP_Error object on failure. 
+ * @throws Exception If an error occurs during login.
+ * @see signup() for more information.
+ * @see get_auth_token() for more information.
  */
-function login(string $baseUrl, string $email, string $password): string { 
- $response = wp_remote_post(
+function login(string $baseUrl, string $email, string $password): string
+{
+    $response = wp_remote_post(
         $baseUrl . '/auth/login',
         array(
             'body' => json_encode(array('email' => $email, 'password' => $password)),
@@ -78,13 +81,12 @@ function login(string $baseUrl, string $email, string $password): string {
         if (isset($data['access_token'])) {
             return $data['access_token'];
         } elseif (isset($data['message'])) {
-            throw new WP_Error('login_failed', $data['message']);
-        } 
-        else {
-            throw new WP_Error('missing_access_token', 'Access token not found in response body');
+            throw new \Exception('Login failed with message: ' . $data['message']);
+        } else {
+            throw new \Exception('Login failed : Access token not found in response body');
         }
     } else {
-        throw $response;
+        throw new \Exception($response->get_error_message(), $response->get_error_code());
     }
 };
 
@@ -92,13 +94,39 @@ function login(string $baseUrl, string $email, string $password): string {
  * Get the Access Token for the current user
  * @param string $baseUrl The base URL of the API.
  * @return string The access_token for the current user
- * @throws WP_Error The WP_Error object on failure. 
+ * @throws Exception If there is any failure in getting the access token.
  * @see login() for more information.
  */
-function get_auth_token(string $baseUrl): string {
-    return login($baseUrl, wp_get_current_user()->user_email, get_option( "blogify_client_secret"));    
+function get_auth_token(string $baseUrl): string
+{
+    return login($baseUrl, wp_get_current_user()->user_email, get_option("blogify_client_secret"));
 }
 
+/**
+ * Registers a new user on the provided base URL.
+ *
+ * The function throws a `WP_Error` exception on various error conditions, including:
+ *  - API call failure.
+ *  - Missing access token in the response.
+ *  - Signup failure with a specific message from the response.
+ *
+ * On successful signup, the function returns the access token retrieved from the
+ * response.
+ *
+ * @param string $baseUrl The base URL of the API endpoint.
+ *
+ * @throws Exception If an error occurs during signup.
+ *
+ * @return string The access token on successful signup.
+ */
+function signup_wordpress_user(string $baseUrl): string
+{
+    return signup($baseUrl,
+        wp_get_current_user()->user_email,
+        get_option("blogify_client_secret"),
+        wp_get_current_user()->display_name,
+        "", "blogify-wordpress-plugin");
+}
 
 /**
  * Get the Blogify Dashboard URL for the current user
@@ -107,7 +135,7 @@ function get_auth_token(string $baseUrl): string {
  * @return string The dashboard URL for the current user
  * @see get_auth_token() for more information.
  */
-function get_dashboard_url(string $baseUrl, string $access_token): string {
+function get_dashboard_url(string $baseUrl, string $access_token): string
+{
     return "${baseUrl}/dashboard?token=${access_token}";
 }
-
