@@ -1,10 +1,34 @@
 <?php
 // بسم الله الرحمن الرحيم
 
-namespace PixelShadow\Blogify;
+namespace PixelShadow\Blogify\API;
 
 
 defined( 'ABSPATH' ) or die( 'Hey, you can\'t access this file, you silly human!' );
+
+
+class UserDetails
+{
+	public string $status;
+	public bool $verified;
+	public string $id;
+	public string $name;
+	public string $email;
+	public string $role;
+	public string $googleId;
+	public bool $googleAuthEnabled;
+	public string $createdAt;
+	public string $business;
+	public array $interests;
+	public string $stripeId;
+	public string $subscriptionPlan;
+	public string $subscriptionStatus;
+	public int $credits;
+	public bool $youtubeConnect;
+	public bool $isShopifyUser;
+}
+
+
 
 /**
  * Fetches user details from the provided base URL using the access token.
@@ -21,7 +45,7 @@ defined( 'ABSPATH' ) or die( 'Hey, you can\'t access this file, you silly human!
  * @return array The user details retrieved from the API in an associative array format.
  *        
  */
-function get_user_details(string $baseUrl, string $access_token): array
+function get_user_details(string $baseUrl, string $access_token): UserDetails
 {
     $response = wp_remote_get(
         "$baseUrl/users/me",
@@ -37,7 +61,7 @@ function get_user_details(string $baseUrl, string $access_token): array
     }
 
     $body = wp_remote_retrieve_body($response);
-    $data = json_decode($body, true);
+    $data = json_decode($body);
 
     if (json_last_error() !== JSON_ERROR_NONE) {
         throw new \Exception('Failed to decode response data');

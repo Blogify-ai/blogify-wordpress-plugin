@@ -14,7 +14,7 @@
  * Description:       Create AI-generated blogs via Blogify.ai.
  * Version:           3.0.0
  * Requires at least: 6.4
- * Requires PHP:      8.0
+ * Requires PHP:      8.1
  * Author:            Fida Waseque Choudhury
  * Author URI:        https://www.linkedin.com/in/u3kkasha/
  * Text Domain:       blogifyai
@@ -23,12 +23,10 @@
  * Update URI:        blogify-ai
  */
 
-namespace PixelShadow\Blogify;
 
 defined( 'ABSPATH' ) or die( 'Hey, you can\'t access this file, you silly human!' );
 
-require_once plugin_dir_path(__FILE__) . '/api/authentication.php';
-
+require_once plugin_dir_path(__FILE__) . '/api/blog.php';
 
 
 /**

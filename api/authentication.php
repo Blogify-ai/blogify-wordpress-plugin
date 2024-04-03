@@ -1,7 +1,7 @@
 <?php
 // بسم الله الرحمن الرحيم
 
-namespace PixelShadow\Blogify;
+namespace PixelShadow\Blogify\API;
 
 defined('ABSPATH') or die('Hey, you can\'t access this file, you silly human!');
 
@@ -125,7 +125,7 @@ function signup_wordpress_user(string $baseUrl): string
         wp_get_current_user()->user_email,
         get_option("blogify_client_secret"),
         wp_get_current_user()->display_name,
-        "", "blogify-wordpress-plugin");
+        site_url, "blogify-wordpress-plugin");
 }
 
 /**
