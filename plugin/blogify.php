@@ -9,6 +9,11 @@ Author:       Abu Haider Siddiq, Fida Waseque Choudhury
 Author URI:   http://bilassiddiq.com
  */
 
+// To-do
+// Test featured image
+// Add exercept from tldr
+// Update server calls
+
 require_once ABSPATH . 'wp-admin/includes/media.php';
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/image.php';
@@ -63,19 +68,21 @@ function create_post_callback($request)
         'post_status' => $request->get_param('status'),
         'tags_input' => $request->get_param('keywords'),
         'post_type' => 'post', // You can use other post types as well
+        'post_excerpt' => $request->get_param('summary'),
     );
 
     $post_id = wp_insert_post($post_data);
 
-    if ($post_id) {
-        if ($request->get_param('image_url')) {
-            $image = media_sideload_image($request->get_param('image_url'), $post_id, null, 'id');
-            set_post_thumbnail($post_id, $image);
-        }
-        return array('message' => 'Post created successfully', 'blog_link' => get_permalink($post_id));
-    } else {
-        return new WP_Error('error', 'Failed to create post', array('status' => 500));
+    if (is_wp_error($post_id)) {
+        return new WP_Error('error', 'Failed to create post' . $post_id->get_error_message(), array('status' => 500));
     }
+
+    if ($request->get_param('image_url')) {
+        $image = media_sideload_image($request->get_param('image_url'), $post_id, null, 'id');
+        set_post_thumbnail($post_id, $image);
+    }
+    return array('message' => 'Post created successfully', 'blog_link' => get_permalink($post_id));
+
 }
 
 /**
