@@ -127,6 +127,7 @@ function get_blogs(string $baseUrl, string $access_token): BlogList
     return $json;
 }
 
+/*
 class TextPrompt
 {
     public function __construct(public string $prompt)
@@ -490,7 +491,7 @@ function create_blog(string $baseUrl, string $access_token, BlogCreateModel $mod
     return $data['_id'] ?? throw new \Exception('Blog ID not found in response: ' . $data['message']);
 
 }
-
+*/
 
 function get_blog_details(string $baseUrl, string $access_token, string $blogId): BlogDetails
 {
@@ -516,14 +517,4 @@ function get_blog_details(string $baseUrl, string $access_token, string $blogId)
 
     return $json;
 }    
-
-$blog = new BlogCreateModel(
-    prompt: new TextPrompt('text'),
-    blogSize: BlogSize::new ('Medium'),
-    blogTone: BlogTone::new ('Engaging'),
-    inputLanguage: InputLanguage::new ('US English'),
-    blogLanguage: BlogLanguage::new ('english'),
-    writerPointOfView: GrammaticalPerson::new ('First Person'),
-);
-
 
