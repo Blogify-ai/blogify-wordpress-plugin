@@ -13,8 +13,8 @@
  * Plugin URI:        https://blogify.ai/
  * Description:       Create AI-generated blogs via Blogify.ai.
  * Version:           3.0.0
- * Requires at least: 6.4
- * Requires PHP:      8.1
+ * Requires at least: 6.0
+ * Requires PHP:      7.4
  * Author:            Fida Waseque Choudhury
  * Author URI:        https://www.linkedin.com/in/u3kkasha/
  * Text Domain:       blogifyai
