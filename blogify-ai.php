@@ -25,8 +25,9 @@
  * Update URI:        blogify-ai
  */
 
-defined('ABSPATH') or die('Hey, you can\'t access this file, you silly human!');
-
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 
 /**
  * Generates a Version 4 (random) UUID.

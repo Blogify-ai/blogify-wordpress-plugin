@@ -3,7 +3,9 @@
 
 namespace PixelShadow\Blogify\API;
 
-defined('ABSPATH') or die('Hey, you can\'t access this file, you silly human!');
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 
 /**
  * Registers a new user on the provided base URL.
