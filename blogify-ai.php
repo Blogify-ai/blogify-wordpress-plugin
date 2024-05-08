@@ -12,10 +12,10 @@
  * Plugin Name:       Blogify-AI
  * Plugin URI:        https://blogify.ai/
  * Description:       Create AI-generated blogs via Blogify.ai.
- * Version:           3.0.0
+ * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
- * Author:            Blogify Development Team
+ * Author:            PixelShadow
  * Author URI:        https://blogify.ai/
  * Developer:         Fida Waseque Choudhury
  * Developer URI:     https://www.linkedin.com/in/u3kkasha/ 
@@ -110,40 +110,47 @@ function create_post_callback($request)
 }
 
 /**
- * Adds a menu page for Blogify settings in the WordPress admin panel.
+ * Adds  submenu pages for Blogify in the WordPress admin panel.
  *
- * Creates a menu page in the admin panel to access Blogify settings.
+ * Creates a submenu page under Dashboard to access Blogify Dashboard.
+ * Creates a submenu page under Settings to access Blogify Settings.
  *
  * @since 1.0
- *
- * @see add_menu_page()
- *
+ * *
  * @return void
  */
 
-function custom_settings_page()
+function add_blogify_menu_pages()
 {
-    add_menu_page(
-        'Blogify Settings', // Page Title
-        'Blogify Settings', // Menu Title
+    add_dashboard_page(
+        'Blogify Dashboard', // Page Title
+        'Blogify', // Menu Title
         'manage_options', // Capability (who can access)
-        'custom-settings', // Menu Slug
-        'custom_settings_callback' // Callback function to display settings
+        'blogify-dashboard', // Menu Slug
+        'blogify_dashboard_callback', // Callback function to display settings
     );
+    add_options_page(
+        'Blogify Settings', // Page Title
+        'Blogify', // Menu Title
+        'manage_options', // Capability (who can access)
+        'blogify-settings', // Menu Slug
+        'blogify_dashboard_callback', // Callback function to display settings
+    );
+
 }
-add_action('admin_menu', 'custom_settings_page');
+add_action('admin_menu', 'add_blogify_menu_pages');
 
 /**
- * Callback function to display settings on the Blogify Settings page.
+ * Callback function to display Blogify dashboard.
  *
- * Displays content on the Blogify Settings page in the admin panel.
+ * Displays content on the Blogify Dashboard page in the admin panel.
  *
  * @since 1.0
  *
  * @return void
  */
 
-function custom_settings_callback()
+function blogify_dashboard_callback()
 {
     ?>
         <div class="wrap">
@@ -157,6 +164,17 @@ function custom_settings_callback()
         </div>
         <?php
 }
+
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_blogify_dashboard_and_settings_links' );
+
+function add_blogify_dashboard_and_settings_links( $actions ) {
+$actions[] = '<a href="'. esc_url( get_admin_url(null, 'options-general.php?page=blogify-settings') ) .'">Settings</a>';
+$actions[] = '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=blogify-dashboard') ) .'">Dashboard</a>';
+$actions[] = '<a href="https://blogify.ai">Website</a>';
+
+return $actions;
+}
+
 
 /**
  * Registers the Blogify client secret setting.
