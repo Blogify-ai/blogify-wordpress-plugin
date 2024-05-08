@@ -1,23 +1,25 @@
 <?php
 // بسم الله الرحمن الرحيم
 /**
- * Plugin Name
+ * Blogify AI
  *
- * @package           BlogifyAI
+ * @package           Blogify-AI
  * @author            Fida Waseque Choudhury
  * @copyright         PixelShadow
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       BlogifyAI
+ * Plugin Name:       Blogify-AI
  * Plugin URI:        https://blogify.ai/
  * Description:       Create AI-generated blogs via Blogify.ai.
  * Version:           3.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
- * Author:            Fida Waseque Choudhury
- * Author URI:        https://www.linkedin.com/in/u3kkasha/
- * Text Domain:       blogifyai
+ * Author:            Blogify Development Team
+ * Author URI:        https://blogify.ai/
+ * Developer:         Fida Waseque Choudhury
+ * Developer URI:     https://www.linkedin.com/in/u3kkasha/ 
+ * Text Domain:       blogify-ai
  * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Update URI:        blogify-ai
