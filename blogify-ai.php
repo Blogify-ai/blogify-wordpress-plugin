@@ -25,7 +25,6 @@
 
 defined('ABSPATH') or die('Hey, you can\'t access this file, you silly human!');
 
-require_once plugin_dir_path(__FILE__) . '/api/blog.php';
 
 /**
  * Generates a Version 4 (random) UUID.
@@ -148,7 +147,7 @@ function custom_settings_callback()
             <h2>Blogify Settings</h2>
             <form method="post" action="options.php">
                 <?php
-settings_fields('custom_settings_group'); // Use the settings group name
+    settings_fields('custom_settings_group'); // Use the settings group name
     do_settings_sections('custom-settings'); // Use the menu slug
     ?>
             </form>
