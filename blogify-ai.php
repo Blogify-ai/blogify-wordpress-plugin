@@ -25,6 +25,9 @@
  * Update URI:        blogify-ai
  */
 
+require plugin_dir_path(__FILE__) . '/api/me.php';
+require plugin_dir_path(__FILE__) . '/api/authentication.php';
+
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
@@ -150,11 +153,99 @@ function add_blogify_menu_pages()
         'Blogify 📝', // Menu Title
         'manage_options', // Capability (who can access)
         blogify_settings_slug, // Menu Slug
-        'blogify_dashboard_callback', // Callback function to display settings
+        'blogify_settings_callback', // Callback function to display settings
     );
 
 }
 add_action('admin_menu', 'add_blogify_menu_pages');
+
+function blogify_dashboard_callback()
+{
+    $baseUrl = 'https://test.blogify.ai';
+    $token = PixelShadow\Blogify\API\login('https://testapi.blogify.ai', get_option('blogify_email'), get_option('blogify_password'));
+    $user = PixelShadow\Blogify\API\get_user_details('https://testapi.blogify.ai', $token);
+    $dashboard_url = $baseUrl . "/dashboard?token=" . $token;
+    $name = $user['name'];
+    $subscriptionStatus = ucfirst($user['subscriptionStatus']);
+    $subscriptionPlan = implode('-', array_map(fn($word) => ucfirst(strtolower($word)), explode('_', $user['subscriptionPlan'])));
+    $credits = $user['credits'];
+
+    $style = <<<EOD
+        <style>
+
+          .profile {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+          }
+
+          .profile h1,
+          .profile button {
+            display: inline-block;
+            margin-right: 10px;
+          }
+
+          .profile h1 {
+            flex: 1;
+          }
+
+          .info,
+          .posts {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+          }
+
+          .info > div,
+          .posts > li {
+            margin-right: 15px;
+            flex: 1;
+          }
+
+          .info span {
+            font-weight: bold;
+          }
+
+          .posts {
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+          }
+
+          .posts li {
+            list-style: none;
+          }
+        </style>
+      EOD;
+
+    $html = <<<EOD
+        <div class="profile">
+          <h1>Blogify Dashboard</h1>
+          <a href="$dashboard_url" target="_blank" style="text-decoration: none;"> <button class="button button-primary">Open Dashboard</button> </a>
+          <div class="profile">
+            <h2>User Profile</h2>
+            <div class="info">
+              <div><span>Name:</span> $name</div>
+              <div><span>Subscription:</span> $subscriptionStatus ($subscriptionPlan)</div>
+              <div><span>Remaining Balance:</span> $credits</div>
+            </div>
+          </div>
+          <div class="profile posts">
+            <h3>Your Posts</h3>
+          </div>
+          <div class="posts">
+            <ul>
+              <li>This is the first post title</li>
+              <li>This is the second post title, even longer</li>
+              <li>A shorter post title here</li>
+            </ul>
+          </div>
+        </div>
+      EOD;
+
+    echo $style . $html;
+
+}
 
 /**
  * Callback function to display Blogify dashboard.
@@ -166,17 +257,17 @@ add_action('admin_menu', 'add_blogify_menu_pages');
  * @return void
  */
 
-function blogify_dashboard_callback()
+function blogify_settings_callback()
 {
     ?>
         <div class="wrap">
             <h2>Blogify Settings</h2>
             <form method="post" action="options.php">
                 <?php
-                    settings_fields(blogify_settings_group); // Use the settings group name
-                    do_settings_sections(blogify_settings_slug); // Use the menu slug
-                    submit_button(); // Display the submit button
-                ?>
+settings_fields(blogify_settings_group); // Use the settings group name
+    do_settings_sections(blogify_settings_slug); // Use the menu slug
+    submit_button(); // Display the submit button
+    ?>
             </form>
         </div>
         <?php
@@ -195,9 +286,7 @@ function blogify_dashboard_callback()
 function blogify_settings_register()
 {
     register_setting(blogify_settings_group, 'blogify_password');
-   // update_option('blogify_password', v4uuid());
     register_setting(blogify_settings_group, 'blogify_email');
-   // update_option('blogify_email', wp_get_current_user()->user_email);
     add_settings_section('blogify_login_section', 'Blogify Login Credentials', 'blogify_login_section_html', blogify_settings_slug);
     add_settings_field('blogify_password', 'Blogify Password', 'blogify_password_field_callback', blogify_settings_slug, 'blogify_login_section');
     add_settings_field('blogify_email', 'Blogify Email', 'blogify_email_field_callback', blogify_settings_slug, 'blogify_login_section');
@@ -253,4 +342,3 @@ function blogify_password_field_callback()
     EOD;
     echo $input . $visibility_button;
 }
-
