@@ -9,26 +9,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-class UserDetails
-{
-	public string $status;
-	public bool $verified;
-	public string $id;
-	public string $name;
-	public string $email;
-	public string $role;
-	public string $googleId;
-	public bool $googleAuthEnabled;
-	public string $createdAt;
-	public string $business;
-	public array $interests;
-	public string $stripeId;
-	public string $subscriptionPlan;
-	public string $subscriptionStatus;
-	public int $credits;
-	public bool $youtubeConnect;
-	public bool $isShopifyUser;
-}
+// class UserDetails
+// {
+// 	public string $status;
+// 	public bool $verified;
+// 	public string $id;
+// 	public string $name;
+// 	public string $email;
+// 	public string $role;
+// 	public string $googleId;
+// 	public bool $googleAuthEnabled;
+// 	public string $createdAt;
+// 	public string $business;
+// 	public array $interests;
+// 	public string $stripeId;
+// 	public string $subscriptionPlan;
+// 	public string $subscriptionStatus;
+// 	public int $credits;
+// 	public bool $youtubeConnect;
+// 	public bool $isShopifyUser;
+// }
 
 
 
@@ -47,7 +47,7 @@ class UserDetails
  * @return array The user details retrieved from the API in an associative array format.
  *        
  */
-function get_user_details(string $baseUrl, string $access_token): UserDetails
+function get_user_details(string $baseUrl, string $access_token)
 {
     $response = wp_remote_get(
         "$baseUrl/users/me",
@@ -63,7 +63,7 @@ function get_user_details(string $baseUrl, string $access_token): UserDetails
     }
 
     $body = wp_remote_retrieve_body($response);
-    $data = json_decode($body);
+    $data = json_decode($body, true);
 
     if (json_last_error() !== JSON_ERROR_NONE) {
         throw new \Exception('Failed to decode response data');
