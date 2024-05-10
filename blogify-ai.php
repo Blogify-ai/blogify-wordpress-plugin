@@ -123,14 +123,14 @@ function create_post_callback($request)
 function add_blogify_menu_pages()
 {
     add_dashboard_page(
-        'Blogify Dashboard', // Page Title
+        'Blogify Dashboard 📝', // Page Title
         'Blogify', // Menu Title
         'manage_options', // Capability (who can access)
         'blogify-dashboard', // Menu Slug
         'blogify_dashboard_callback', // Callback function to display settings
     );
     add_options_page(
-        'Blogify Settings', // Page Title
+        'Blogify Settings 📝', // Page Title
         'Blogify', // Menu Title
         'manage_options', // Capability (who can access)
         'blogify-settings', // Menu Slug
