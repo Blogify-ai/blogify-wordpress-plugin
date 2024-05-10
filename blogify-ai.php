@@ -18,15 +18,27 @@
  * Author:            PixelShadow
  * Author URI:        https://blogify.ai/
  * Developer:         Fida Waseque Choudhury
- * Developer URI:     https://www.linkedin.com/in/u3kkasha/ 
+ * Developer URI:     https://www.linkedin.com/in/u3kkasha/
  * Text Domain:       blogify-ai
  * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Update URI:        blogify-ai
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
+}
+
+// Add extra links on plugin page
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'add_blogify_dashboard_and_settings_links');
+
+function add_blogify_dashboard_and_settings_links($actions)
+{
+    $actions[] = '<a href="' . esc_url(get_admin_url(null, 'options-general.php?page=blogify-settings')) . '">Settings</a>';
+    $actions[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=blogify-dashboard')) . '">Dashboard</a>';
+    $actions[] = '<a href="https://blogify.ai">Website</a>';
+
+    return $actions;
 }
 
 /**
@@ -86,7 +98,7 @@ function create_post_callback($request)
     $title = $request->get_param('title');
     $content = $request->get_param('content');
     $client_secret_at_blogify = $request->get_param('client_secret');
-    $client_secret_in_users_wp_site = get_option('blogify_client_secret');
+    $client_secret_in_users_wp_site = get_option('blogify_password');
 
     if ($client_secret_at_blogify !== $client_secret_in_users_wp_site) {
         return new WP_Error('error', 'Client secret mismatch', array('status' => 403));
@@ -109,6 +121,10 @@ function create_post_callback($request)
     }
 }
 
+const blogify_settings_slug = 'blogify-settings';
+const blogify_dashboard_slug = 'blogify-dashboard';
+const blogify_settings_group = 'blogify_settings_group';
+
 /**
  * Adds  submenu pages for Blogify in the WordPress admin panel.
  *
@@ -124,16 +140,16 @@ function add_blogify_menu_pages()
 {
     add_dashboard_page(
         'Blogify Dashboard 📝', // Page Title
-        'Blogify', // Menu Title
+        'Blogify 📝', // Menu Title
         'manage_options', // Capability (who can access)
-        'blogify-dashboard', // Menu Slug
+        blogify_dashboard_slug, // Menu Slug
         'blogify_dashboard_callback', // Callback function to display settings
     );
     add_options_page(
         'Blogify Settings 📝', // Page Title
-        'Blogify', // Menu Title
+        'Blogify 📝', // Menu Title
         'manage_options', // Capability (who can access)
-        'blogify-settings', // Menu Slug
+        blogify_settings_slug, // Menu Slug
         'blogify_dashboard_callback', // Callback function to display settings
     );
 
@@ -157,29 +173,17 @@ function blogify_dashboard_callback()
             <h2>Blogify Settings</h2>
             <form method="post" action="options.php">
                 <?php
-    settings_fields('custom_settings_group'); // Use the settings group name
-    do_settings_sections('custom-settings'); // Use the menu slug
-    ?>
+                    settings_fields(blogify_settings_group); // Use the settings group name
+                    do_settings_sections(blogify_settings_slug); // Use the menu slug
+                    submit_button(); // Display the submit button
+                ?>
             </form>
         </div>
         <?php
 }
 
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'add_blogify_dashboard_and_settings_links' );
-
-function add_blogify_dashboard_and_settings_links( $actions ) {
-$actions[] = '<a href="'. esc_url( get_admin_url(null, 'options-general.php?page=blogify-settings') ) .'">Settings</a>';
-$actions[] = '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=blogify-dashboard') ) .'">Dashboard</a>';
-$actions[] = '<a href="https://blogify.ai">Website</a>';
-
-return $actions;
-}
-
-
 /**
- * Registers the Blogify client secret setting.
- *
- * Registers the setting for the Blogify client secret in WordPress options.
+ * Registers the Blogify Options
  *
  * @since 1.0
  *
@@ -188,27 +192,17 @@ return $actions;
  * @return void
  */
 
-function custom_settings_register()
+function blogify_settings_register()
 {
-    register_setting('custom_settings_group', 'blogify_client_secret');
+    register_setting(blogify_settings_group, 'blogify_password');
+   // update_option('blogify_password', v4uuid());
+    register_setting(blogify_settings_group, 'blogify_email');
+   // update_option('blogify_email', wp_get_current_user()->user_email);
+    add_settings_section('blogify_login_section', 'Blogify Login Credentials', 'blogify_login_section_html', blogify_settings_slug);
+    add_settings_field('blogify_password', 'Blogify Password', 'blogify_password_field_callback', blogify_settings_slug, 'blogify_login_section');
+    add_settings_field('blogify_email', 'Blogify Email', 'blogify_email_field_callback', blogify_settings_slug, 'blogify_login_section');
 }
-add_action('admin_init', 'custom_settings_register');
-
-/**
- * Adds settings fields and sections for Blogify settings.
- *
- * Adds sections and fields to the Blogify Settings page in the admin panel.
- *
- * @since 1.0
- *
- * @return void
- */
-
-function custom_settings_fields()
-{
-    add_settings_section('custom_section_id', 'Blogify Section', 'custom_section_callback', 'custom-settings');
-    add_settings_field('blogify_client_secret', 'Blogify Wordpress Plugin', 'custom_option_callback', 'custom-settings', 'custom_section_id');
-}
+add_action('admin_init', 'blogify_settings_register');
 
 /**
  * Callback function to display information in the Blogify Settings section.
@@ -220,36 +214,43 @@ function custom_settings_fields()
  * @return void
  */
 
-function custom_section_callback()
+function blogify_login_section_html()
 {
-    echo 'You are most likely here to connect your Wordpress site to Blogify.ai.<br/> If so please click on the Connect Button below (if you haven\'t already done so).';
+    echo 'These the login credentials used by the plugin to connect to Blogify.';
 }
 
-/**
- * Callback function to display the connect button and generate a secret for Blogify integration.
- *
- * Generates a secret and displays the connect button for Blogify integration.
- *
- * @since 1.0
- *
- * @return void
- */
-
-function custom_option_callback()
+function blogify_email_field_callback()
 {
-    if (get_option("blogify_client_secret") == "") {
-        update_option('blogify_client_secret', v4uuid());
+    echo '<input class="regular-text" type="text" name="blogify_email" value="' . esc_attr(get_option('blogify_email')) . '" />';
+}
+
+function blogify_password_field_callback()
+{
+    $input = '<input type="password" value="' . esc_attr(get_option('blogify_password')) . '" name="blogify_password" id="blogify_password" class="regular-text">';
+    $visibility_button = <<<EOD
+    <span class="wp-pwd">
+    <button type="button" class="button wp-hide-pw hide-if-no-js" id="blogify_password-toggle"
+        aria-label="Toggle password visibility"
+        aria-pressed="false"
+    >
+        <span class="dashicons dashicons-visibility" aria-hidden="false"></span>
+    </button>
+    </span>
+    <script>
+    document.getElementById("blogify_password-toggle").addEventListener("click", function() {
+    const passwordInput = document.getElementById("blogify_password");
+    const visibilityIcon = this.querySelector('.dashicons');
+
+    if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    visibilityIcon.classList.replace('dashicons-visibility', 'dashicons-hidden');
+    } else {
+    passwordInput.type = 'password';
+    visibilityIcon.classList.replace('dashicons-hidden', 'dashicons-visibility');
     }
-    $env = parse_ini_file('.env');
-    $blogify_client_baseurl = $env['BLOGIFY_CLIENT_BASEURL'];
-
-    $option = get_option('blogify_client_secret');
-    $url_with_secret = site_url() . "?secret=" . $option;
-    $url_to_open = $blogify_client_baseurl . "/dashboard/settings/wordpressorg-connect?wordpressorg=" . $url_with_secret;
-    echo '<input type="button" class="button button-primary" value="Connect" onclick="window.open( \'' . $url_to_open . '\', \'_blank\');" />';
-
+    });
+    </script>
+    EOD;
+    echo $input . $visibility_button;
 }
 
-add_action('admin_init', 'custom_settings_fields');
-
-?>
