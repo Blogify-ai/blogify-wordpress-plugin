@@ -25,8 +25,13 @@
  * Update URI:        blogify-ai
  */
 
-require plugin_dir_path(__FILE__) . '/api/me.php';
-require plugin_dir_path(__FILE__) . '/api/authentication.php';
+// Needed for image sideloading
+require_once ABSPATH . 'wp-admin/includes/media.php';
+require_once ABSPATH . 'wp-admin/includes/file.php';
+require_once ABSPATH . 'wp-admin/includes/image.php';
+
+require_once plugin_dir_path(__FILE__) . '/api/me.php';
+require_once plugin_dir_path(__FILE__) . '/api/authentication.php';
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -95,34 +100,41 @@ add_action('rest_api_init', 'create_blogify_api_endpoint');
  * @return WP_Error|array Returns a success message and post link on success, or a WP_Error object on failure.
  */
 
-function create_post_callback($request)
-{
-    // Get data from the request
-    $title = $request->get_param('title');
-    $content = $request->get_param('content');
-    $client_secret_at_blogify = $request->get_param('client_secret');
-    $client_secret_in_users_wp_site = get_option('blogify_password');
+ function create_post_callback($request)
+ {
+ 
+     if ($request->get_param('client_secret') !== get_option('blogify_client_secret')) {
+         return new WP_Error('error', 'Client secret mismatch', array('status' => 403));
+     }
+ 
+     // Create a new post
+     $post_data = array(
+         'post_title' => $request->get_param('title'),
+         'post_content' => $request->get_param('content'),
+         'post_status' => $request->get_param('status'),
+         'tags_input' => $request->get_param('keywords'),
+         'post_type' => 'post', // You can use other post types as well
+         'post_excerpt' => $request->get_param('summary'),
+     );
+ 
+     $post_id = wp_insert_post($post_data);
+ 
+     if (is_wp_error($post_id)) {
+         return new WP_Error('error', 'Failed to create post' . $post_id->get_error_message(), array('status' => 500));
+     }
+ 
+     if ($request->get_param('image_url')) {
+         $image = media_sideload_image($request->get_param('image_url'), $post_id, null, 'id');
+         set_post_thumbnail($post_id, $image);
 
-    if ($client_secret_at_blogify !== $client_secret_in_users_wp_site) {
-        return new WP_Error('error', 'Client secret mismatch', array('status' => 403));
+    if ($request->get_param( 'blog_id' )) {
+        add_post_meta( $post_id, 'blog_id', $request->get_param( 'blog_id' ), true);
     }
-
-    // Create a new post
-    $post_data = array(
-        'post_title' => $title,
-        'post_content' => $content,
-        'post_status' => 'publish', // You can change the post status as needed
-        'post_type' => 'post', // You can use other post types as well
-    );
-
-    $post_id = wp_insert_post($post_data);
-
-    if ($post_id) {
-        return array('message' => 'Post created successfully', 'blog_link' => get_permalink($post_id));
-    } else {
-        return new WP_Error('error', 'Failed to create post', array('status' => 500));
-    }
-}
+    
+     }
+     return array('message' => 'Post created successfully', 'blog_link' => get_permalink($post_id));
+ 
+ }
 
 const blogify_settings_slug = 'blogify-settings';
 const blogify_dashboard_slug = 'blogify-dashboard';
@@ -172,57 +184,68 @@ function blogify_dashboard_callback()
 
     $style = <<<EOD
         <style>
-
-          .profile {
+        .card {
             background-color: #f5f5f5;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-          }
+            width: 100%;
+        }
 
-          .profile h1,
-          .profile button {
-            display: inline-block;
-            margin-right: 10px;
-          }
-
-          .profile h1 {
-            flex: 1;
-          }
-
-          .info,
-          .posts {
+        .profile {
             display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
+            justify-content: space-between; /* Align items on the main axis */
+            align-items: center; /* Align items on the cross axis */
           }
 
-          .info > div,
-          .posts > li {
-            margin-right: 15px;
-            flex: 1;
-          }
+        .profile h1,
+        .profile button {
+        display: inline-block;
+        }
 
-          .info span {
-            font-weight: bold;
-          }
+        .profile button {
+        margin-left: auto; /* Push the button to the right */
+        }
 
-          .posts {
-            border-top: 1px solid #ddd;
-            padding-top: 10px;
-          }
+        .profile h1 {
+        flex: 1;
+        }
 
-          .posts li {
-            list-style: none;
-          }
+        .info,
+        .posts {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+        }
+
+        .info > div,
+        .posts > li {
+        margin-right: 15px;
+        flex: 1;
+        }
+
+        .info span {
+        font-weight: bold;
+        }
+
+        .posts {
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+        }
+
+        .posts li {
+        list-style: none;
+        }
         </style>
-      EOD;
+        EOD;
 
     $html = <<<EOD
-        <div class="profile">
+        <div class="wrap">
+        <div class="card profile">
           <h1>Blogify Dashboard</h1>
           <a href="$dashboard_url" target="_blank" style="text-decoration: none;"> <button class="button button-primary">Open Dashboard</button> </a>
-          <div class="profile">
+        </div>
+          <div class="card">
             <h2>User Profile</h2>
             <div class="info">
               <div><span>Name:</span> $name</div>
@@ -230,7 +253,7 @@ function blogify_dashboard_callback()
               <div><span>Remaining Balance:</span> $credits</div>
             </div>
           </div>
-          <div class="profile posts">
+          <div class="card posts">
             <h3>Your Posts</h3>
           </div>
           <div class="posts">
@@ -240,7 +263,7 @@ function blogify_dashboard_callback()
               <li>A shorter post title here</li>
             </ul>
           </div>
-        </div>
+          </div>
       EOD;
 
     echo $style . $html;
