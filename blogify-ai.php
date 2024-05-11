@@ -115,6 +115,7 @@ add_action('rest_api_init', 'create_blogify_api_endpoint');
          'tags_input' => $request->get_param('keywords'),
          'post_type' => 'post', // You can use other post types as well
          'post_excerpt' => $request->get_param('summary'),
+         'meta_input' => ['blog_id'=> $request->get_param( 'blog_id' )]
      );
  
      $post_id = wp_insert_post($post_data);
@@ -126,10 +127,6 @@ add_action('rest_api_init', 'create_blogify_api_endpoint');
      if ($request->get_param('image_url')) {
          $image = media_sideload_image($request->get_param('image_url'), $post_id, null, 'id');
          set_post_thumbnail($post_id, $image);
-
-    if ($request->get_param( 'blog_id' )) {
-        add_post_meta( $post_id, 'blog_id', $request->get_param( 'blog_id' ), true);
-    }
     
      }
      return array('message' => 'Post created successfully', 'blog_link' => get_permalink($post_id));
