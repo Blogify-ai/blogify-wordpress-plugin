@@ -100,38 +100,67 @@ add_action('rest_api_init', 'create_blogify_api_endpoint');
  * @return WP_Error|array Returns a success message and post link on success, or a WP_Error object on failure.
  */
 
- function create_post_callback($request)
- {
- 
-     if ($request->get_param('client_secret') !== get_option('blogify_client_secret')) {
-         return new WP_Error('error', 'Client secret mismatch', array('status' => 403));
-     }
- 
-     // Create a new post
-     $post_data = array(
-         'post_title' => $request->get_param('title'),
-         'post_content' => $request->get_param('content'),
-         'post_status' => $request->get_param('status'),
-         'tags_input' => $request->get_param('keywords'),
-         'post_type' => 'post', // You can use other post types as well
-         'post_excerpt' => $request->get_param('summary'),
-         'meta_input' => ['blog_id'=> $request->get_param( 'blog_id' )]
-     );
- 
-     $post_id = wp_insert_post($post_data);
- 
-     if (is_wp_error($post_id)) {
-         return new WP_Error('error', 'Failed to create post' . $post_id->get_error_message(), array('status' => 500));
-     }
- 
-     if ($request->get_param('image_url')) {
-         $image = media_sideload_image($request->get_param('image_url'), $post_id, null, 'id');
-         set_post_thumbnail($post_id, $image);
-    
-     }
-     return array('message' => 'Post created successfully', 'blog_link' => get_permalink($post_id));
- 
- }
+function create_post_callback($request)
+{
+
+    if ($request->get_param('client_secret') !== get_option('blogify_client_secret')) {
+        return new WP_Error('error', 'Client secret mismatch', array('status' => 403));
+    }
+
+    // Create a new post
+    $post_data = array(
+        'post_title' => $request->get_param('title'),
+        'post_content' => $request->get_param('content'),
+        'post_status' => $request->get_param('status'),
+        'tags_input' => $request->get_param('keywords'),
+        'post_type' => 'post', // You can use other post types as well
+        'post_excerpt' => $request->get_param('summary'),
+        'meta_input' => [
+            'blogify_blog_id' => $request->get_param('blog_id'),
+            'blogify_meta_tags' => $request->get_param('meta_tags'),
+            'blogify_meta_description' => $request->get_param('meta_description'),
+        ],
+    );
+
+    $post_id = wp_insert_post($post_data);
+
+    if (is_wp_error($post_id)) {
+        return new WP_Error('error', 'Failed to create post' . $post_id->get_error_message(), array('status' => 500));
+    }
+
+    if ($request->get_param('image_url')) {
+        $image = media_sideload_image($request->get_param('image_url'), $post_id, null, 'id');
+        set_post_thumbnail($post_id, $image);
+
+    }
+    return array('message' => 'Post created successfully', 'blog_link' => get_permalink($post_id));
+
+}
+
+function wp_add_meta_html()
+{
+    global $post;
+    if (is_page() || is_single()) {
+        $meta_description = get_post_meta(get_queried_object_id(), 'blogify_meta_description', true);
+        $meta_tags = get_post_meta(get_queried_object_id(), 'blogify_meta_tags', true);
+
+        if (!empty($meta_description)) {
+            printf(
+                '<meta name="description" content="%s" />',
+                esc_attr(trim($meta_description))
+            );
+        }
+
+        if (!empty($meta_tags)) {
+            printf(
+                '<meta name="keywords" content="%s" />',
+                esc_attr(trim(implode(',', $meta_tags)))
+            );
+        }
+    }
+}
+
+add_action('wp_head', 'wp_add_meta_html');
 
 const blogify_settings_slug = 'blogify-settings';
 const blogify_dashboard_slug = 'blogify-dashboard';
@@ -170,100 +199,112 @@ add_action('admin_menu', 'add_blogify_menu_pages');
 
 function blogify_dashboard_callback()
 {
-    $baseUrl = 'https://test.blogify.ai';
-    $token = PixelShadow\Blogify\API\login('https://testapi.blogify.ai', get_option('blogify_email'), get_option('blogify_password'));
-    $user = PixelShadow\Blogify\API\get_user_details('https://testapi.blogify.ai', $token);
-    $dashboard_url = $baseUrl . "/dashboard?token=" . $token;
-    $name = $user['name'];
-    $subscriptionStatus = ucfirst($user['subscriptionStatus']);
-    $subscriptionPlan = implode('-', array_map(fn($word) => ucfirst(strtolower($word)), explode('_', $user['subscriptionPlan'])));
-    $credits = $user['credits'];
+    // $baseUrl = 'https://test.blogify.ai';
+    // $token = PixelShadow\Blogify\API\login('https://testapi.blogify.ai', get_option('blogify_email'), get_option('blogify_password'));
+    // $user = PixelShadow\Blogify\API\get_user_details('https://testapi.blogify.ai', $token);
+    // $dashboard_url = $baseUrl . "/dashboard?token=" . $token;
+    // $name = $user['name'];
+    // $subscriptionStatus = ucfirst($user['subscriptionStatus']);
+    // $subscriptionPlan = implode('-', array_map(fn($word) => ucfirst(strtolower($word)), explode('_', $user['subscriptionPlan'])));
+    // $credits = $user['credits'];
 
-    $style = <<<EOD
-        <style>
-        .card {
-            background-color: #f5f5f5;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            width: 100%;
-        }
+    // $style = <<<EOD
+    //     <style>
+    //     .card {
+    //         background-color: #f5f5f5;
+    //         padding: 20px;
+    //         border-radius: 5px;
+    //         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    //         width: 100%;
+    //     }
 
-        .profile {
-            display: flex;
-            justify-content: space-between; /* Align items on the main axis */
-            align-items: center; /* Align items on the cross axis */
-          }
+    //     .profile {
+    //         display: flex;
+    //         justify-content: space-between; /* Align items on the main axis */
+    //         align-items: center; /* Align items on the cross axis */
+    //       }
 
-        .profile h1,
-        .profile button {
-        display: inline-block;
-        }
+    //     .profile h1,
+    //     .profile button {
+    //     display: inline-block;
+    //     }
 
-        .profile button {
-        margin-left: auto; /* Push the button to the right */
-        }
+    //     .profile button {
+    //     margin-left: auto; /* Push the button to the right */
+    //     }
 
-        .profile h1 {
-        flex: 1;
-        }
+    //     .profile h1 {
+    //     flex: 1;
+    //     }
 
-        .info,
-        .posts {
-        display: flex;
-        flex-wrap: wrap;
-        margin-bottom: 15px;
-        }
+    //     .info,
+    //     .posts {
+    //     display: flex;
+    //     flex-wrap: wrap;
+    //     margin-bottom: 15px;
+    //     }
 
-        .info > div,
-        .posts > li {
-        margin-right: 15px;
-        flex: 1;
-        }
+    //     .info > div,
+    //     .posts > li {
+    //     margin-right: 15px;
+    //     flex: 1;
+    //     }
 
-        .info span {
-        font-weight: bold;
-        }
+    //     .info span {
+    //     font-weight: bold;
+    //     }
 
-        .posts {
-        border-top: 1px solid #ddd;
-        padding-top: 10px;
-        }
+    //     .posts {
+    //     border-top: 1px solid #ddd;
+    //     padding-top: 10px;
+    //     }
 
-        .posts li {
-        list-style: none;
-        }
-        </style>
-        EOD;
+    //     .posts li {
+    //     list-style: none;
+    //     }
+    //     </style>
+    //     EOD;
 
-    $html = <<<EOD
-        <div class="wrap">
-        <div class="card profile">
-          <h1>Blogify Dashboard</h1>
-          <a href="$dashboard_url" target="_blank" style="text-decoration: none;"> <button class="button button-primary">Open Dashboard</button> </a>
-        </div>
-          <div class="card">
-            <h2>User Profile</h2>
-            <div class="info">
-              <div><span>Name:</span> $name</div>
-              <div><span>Subscription:</span> $subscriptionStatus ($subscriptionPlan)</div>
-              <div><span>Remaining Balance:</span> $credits</div>
-            </div>
-          </div>
-          <div class="card posts">
-            <h3>Your Posts</h3>
-          </div>
-          <div class="posts">
-            <ul>
-              <li>This is the first post title</li>
-              <li>This is the second post title, even longer</li>
-              <li>A shorter post title here</li>
-            </ul>
-          </div>
-          </div>
-      EOD;
+    // $html = <<<EOD
+    //     <div class="wrap">
+    //     <div class="card profile">
+    //       <h1>Blogify Dashboard</h1>
+    //       <a href="$dashboard_url" target="_blank" style="text-decoration: none;"> <button class="button button-primary">Open Dashboard</button> </a>
+    //     </div>
+    //       <div class="card">
+    //         <h2>User Profile</h2>
+    //         <div class="info">
+    //           <div><span>Name:</span> $name</div>
+    //           <div><span>Subscription:</span> $subscriptionStatus ($subscriptionPlan)</div>
+    //           <div><span>Remaining Balance:</span> $credits</div>
+    //         </div>
+    //       </div>
+    //       <div class="card posts">
+    //         <h3>Your Posts</h3>
+    //       </div>
+    //       <div class="posts">
+    //         <ul>
+    //           <li>This is the first post title</li>
+    //           <li>This is the second post title, even longer</li>
+    //           <li>A shorter post title here</li>
+    //         </ul>
+    //       </div>
+    //       </div>
+    //   EOD;
 
-    echo $style . $html;
+    // echo $style . $html;
+
+    if (get_option("blogify_client_secret") == "") {
+        update_option('blogify_client_secret', v4uuid());
+    }
+    $env = parse_ini_file('.env');
+    $blogify_client_baseurl = $env['BLOGIFY_CLIENT_BASEURL'];
+
+    $option = get_option('blogify_client_secret');
+    $url_with_secret = site_url() . "?secret=" . $option;
+    $url_to_open = $blogify_client_baseurl . "/login?redirectTo=/dashboard/settings/wordpressorg-connect?wordpressorg=" . $url_with_secret;
+    $button = '<input type="button" class="button button-primary" value="Connect" onclick="window.open( \'' . $url_to_open . '\', \'_blank\');" />';
+    echo '<div class="wrap">' . $button . '</div>';
 
 }
 

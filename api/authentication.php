@@ -88,7 +88,7 @@ function login(string $baseUrl, string $email, string $password): string
             throw new \Exception('Login failed : Access token not found in response body');
         }
     } else {
-        throw new \Exception($response->get_error_message(), $response->get_error_code());
+        throw new \Exception($response->get_error_message() . ' ' . $response->get_error_code());
     }
 };
 
