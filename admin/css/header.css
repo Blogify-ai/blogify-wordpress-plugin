@@ -1,0 +1,64 @@
+header.blogify {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+header.blogify #blogify-banner {
+    height: 28px;
+}
+
+header.blogify img .icon {
+    width: 20px;
+    height: 20px;
+}
+
+header.blogify #credits {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    font-size: 11px;
+    padding: 5px;
+    font-weight: 600;
+    border-radius: 18px;
+    background-color: var(--blogify-primary);
+}
+
+header.blogify #credits-logo {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: solid 1.5px #fff;
+}
+
+header.blogify #user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: solid 1.5px var(--blogify-primary);
+}
+
+
+header.blogify > .left {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+}
+
+header.blogify > .right {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+header.blogify .left > img,
+header.blogify .left > span {
+    margin-right: 10px;
+}
+
+header.blogify .right > img,
+header.blogify .right > span {
+    margin-left: 10px;
+}
