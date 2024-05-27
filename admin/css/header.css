@@ -1,19 +1,19 @@
-header.blogify {
+div.blogify header {
     display: flex;
     align-items: center;
     padding: 10px;
 }
 
-header.blogify #blogify-banner {
+div.blogify header #blogify-banner {
     height: 28px;
 }
 
-header.blogify img .icon {
+div.blogify header img .icon {
     width: 20px;
     height: 20px;
 }
 
-header.blogify #credits {
+div.blogify header #credits {
     display: flex;
     gap: 5px;
     align-items: center;
@@ -26,14 +26,14 @@ header.blogify #credits {
     background-color: var(--blogify-primary);
 }
 
-header.blogify #credits-logo {
+div.blogify header #credits-logo {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     border: solid 1.5px #fff;
 }
 
-header.blogify #user-avatar {
+div.blogify header #user-avatar {
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -41,24 +41,24 @@ header.blogify #user-avatar {
 }
 
 
-header.blogify > .left {
+div.blogify header>.left {
     display: flex;
     align-items: center;
     margin-right: auto;
 }
 
-header.blogify > .right {
+div.blogify header>.right {
     display: flex;
     align-items: center;
     margin-left: auto;
 }
 
-header.blogify .left > img,
-header.blogify .left > span {
+div.blogify header .left>img,
+div.blogify header .left>span {
     margin-right: 10px;
 }
 
-header.blogify .right > img,
-header.blogify .right > span {
+div.blogify header .right>img,
+div.blgofify header .right>span {
     margin-left: 10px;
 }
