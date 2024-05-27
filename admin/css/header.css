@@ -1,7 +1,6 @@
 div.blogify header {
     display: flex;
     align-items: center;
-    padding: 10px;
 }
 
 div.blogify header #blogify-banner {
@@ -23,7 +22,7 @@ div.blogify header #credits {
     padding: 5px;
     font-weight: 600;
     border-radius: 18px;
-    background-color: var(--blogify-primary);
+    background-color: var(--blogify-primary-color);
 }
 
 div.blogify header #credits-logo {
@@ -37,28 +36,6 @@ div.blogify header #user-avatar {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: solid 1.5px var(--blogify-primary);
+    border: solid 1.5px var(--blogify-primary-color);
 }
 
-
-div.blogify header>.left {
-    display: flex;
-    align-items: center;
-    margin-right: auto;
-}
-
-div.blogify header>.right {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-}
-
-div.blogify header .left>img,
-div.blogify header .left>span {
-    margin-right: 10px;
-}
-
-div.blogify header .right>img,
-div.blgofify header .right>span {
-    margin-left: 10px;
-}
