@@ -12,8 +12,7 @@
             padding: 10px;
         }
 
-        .blogify-header #blogify-logo {
-            width: 28px;
+        .blogify-header #blogify-banner {
             height: 28px;
         }
 
@@ -22,9 +21,13 @@
             height: 20px;
         }
 
-        .blogify-header #blogify-name {
-            font-size: 20px;
+        .blogify-header #credits {
+            color: #fff;
+            font-size: 11px;
             font-weight: 600;
+            padding: 5px;
+            border-radius: 18px;
+            background-color: #f2470d;
         }
 
         .blogify-header #user-avatar {
@@ -99,14 +102,15 @@
 <body>
     <header class="blogify-header">
         <div class="left">
-            <img id="blogify-logo" src="https://blogify.ai/images/blogify.svg" />
-            <span id="blogify-name">Blogify</span>
+            <img id="blogify-banner" src="../images/blogify-banner.png" />
         </div>
         <div class="right">
-            <span>Credits</span>
+            <span id="credits">
+                Credits: 800
+            </span>
             <img class="icon" src="../images/settings-gear-icon.svg" />
-            <img class="icon" src="../images/notification-icon-with-red-dot.svg" />
-            <img id="user-avatar" src="https://blogify.ai/images/blogify.svg" />
+            <img class="icon" src="../images/notification-icon.svg" />
+            <img id="user-avatar" src="../images/blogify-light.svg" />
         </div>
     </header>
     <article class="status-bar">
