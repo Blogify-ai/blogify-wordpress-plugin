@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .blogify-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .blogify-header #blogify-logo {
+            width: 28px;
+            height: 28px;
+        }
+
+        .blogify-header img .icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .blogify-header #blogify-name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .blogify-header #user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: solid 1.5px #f2470d;
+        }
+
+
+        .blogify-header .left {
+            display: flex;
+            align-items: center;
+            margin-right: auto;
+        }
+
+        .blogify-header .right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .blogify-header .left img,
+        .blogify-header .left span {
+            margin-right: 10px;
+        }
+
+        .blogify-header .right img,
+        .blogify-header .right span {
+            margin-left: 10px;
+        }
+
+
+
+        .status-bar {
+            display: flex;
+            width: 100%;
+            gap: 15px
+        }
+
+        .status-card {
+            flex: 1;
+            gap: 8px;
+            display: flex;
+            border: 1px solid #ccc;
+            padding: 13px;
+            border-radius: 8px;
+            border: solid 1px #e3dbd9;
+            background-image: linear-gradient(to bottom, #fff, #f4f1f0);
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .status-card .title {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .status-card .value {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .status-card .info {
+            color: #93766c;
+            font-size: 13px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="blogify-header">
+        <div class="left">
+            <img id="blogify-logo" src="https://blogify.ai/images/blogify.svg" />
+            <span id="blogify-name">Blogify</span>
+        </div>
+        <div class="right">
+            <span>Credits</span>
+            <img class="icon" src="../images/settings-gear-icon.svg" />
+            <img class="icon" src="../images/notification-icon-with-red-dot.svg" />
+            <img id="user-avatar" src="https://blogify.ai/images/blogify.svg" />
+        </div>
+    </header>
+    <article class="status-bar">
+        <article class="status-card">
+            <span class="title">Draft</span>
+            <span class="value">5</span>
+            <span class="info">Total Blogs: 5</span>
+        </article>
+        <article class="status-card">
+            <span class="title">Scheduled</span>
+            <span class="value">1</span>
+            <span class="info">Next Blog : <time datetime="2023-05-18T08:54:00">08:54 AM, 18 May 23</time></span>
+        </article>
+        <article class="status-card">
+            <span class="title">Published</span>
+            <span class="value">2</span>
+            <span class="info">Active Links: 2</span>
+        </article>
+        <article class="status-card">
+            <span class="title">Earnings</span>
+            <span class="value"">$0.00</span>
+            <span class=" info">Balance: $0.00</span>
+        </article>
+    </article>
+    <main>
+        <article>
+            <span>Recent Blogs</span>
+            <button type="button">Create Blog</button>
+        </article>
+    </main>
+</body>
+
+</html>
