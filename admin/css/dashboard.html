@@ -9,42 +9,9 @@
     <link rel="stylesheet" href="../css/button.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/blog-list.css">
-    <style>
-        .status-bar {
-            display: flex;
-            width: 100%;
-            gap: 15px
-        }
+    <link rel="stylesheet" href="../css/status-card.css">
+    <link rel="stylesheet" href="../css/category-list.css">
 
-        .status-card {
-            flex: 1;
-            gap: 8px;
-            display: flex;
-            border: 1px solid #ccc;
-            padding: 13px;
-            border-radius: 8px;
-            border: solid 1px #e3dbd9;
-            background-image: linear-gradient(to bottom, #fff, #f4f1f0);
-            flex-direction: column;
-            justify-content: space-evenly;
-        }
-
-        .status-card .title {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .status-card .value {
-            font-size: 28px;
-            font-weight: 600;
-        }
-
-        .status-card .info {
-            color:var(--blogify-soft-text-color);
-            font-size: 13px;
-            margin-top: 16px;
-        }
-    </style>
 </head>
 
 <body>
@@ -61,10 +28,11 @@
                     </span>
                 </span>
                 <img class="icon" alt="Settings" src="../images/settings-gear-icon.svg" />
-                <img class="icon" alt="Notification" src="../images/notification-icon.svg" />
+                <img class="icon" hidden alt="Notification" src="../images/notification-icon.svg" />
                 <img id="user-avatar" alt="User Avatar" src="../images/blogify-banner-light.svg" />
             </div>
         </header>
+        <main>
         <article class="status-bar">
             <article class="status-card">
                 <span class="title">Draft</span>
@@ -87,7 +55,6 @@
             <span class=" info">Balance: $0.00</span>
             </article>
         </article>
-        <main>
             <article class="blog-list">
                 <section class="header">
                     <span class="title">My Blogs</span>
@@ -138,6 +105,33 @@
                 <section class="footer">
                     <a>View All Blogs<a>
                 </section>
+            </article>
+            <article class="category-list">
+                <section class="header">
+                    <span class="title">My Categories</span>
+                    <button type="button" class="secondary">Create</button>
+                </section>
+            <section class="items">
+                <span class="category-info">
+                    <span class="category-name">Herbs</span>
+                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
+                </span>
+                <span class="category-info">
+                    <span class="category-name">Herbs</span>
+                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
+                </span>
+                <span class="category-info">
+                    <span class="category-name">Herbs</span>
+                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
+                </span>
+                <span class="category-info">
+                    <span class="category-name">Herbs</span>
+                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
+                </span>
+                <span class="category-info">
+                    <span class="category-name">Herbs</span>
+                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
+                </span>
             </article>
         </main>
     </div>
