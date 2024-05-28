@@ -1,0 +1,32 @@
+div.blogify span.pagination {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    flex-direction: column;
+    gap:16px;
+}
+
+div.blogify span.pagination span.page-numbers {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    gap: 5px;
+}
+
+div.blogify span.pagination span.page-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--blogify-soft-text-color);
+}
+
+div.blogify span.pagination span.page-numbers img#arrow-left {
+    transform: rotate(180deg);
+}
+
+div.blogify span.pagination span.page-numbers img#arrow-right {
+    transform: rotate(360deg);
+}

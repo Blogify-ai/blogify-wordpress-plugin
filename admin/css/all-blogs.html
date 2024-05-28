@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="../css/button.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/blog-list.css">
-    <link rel="stylesheet" href="../css/status-card.css">
-    <link rel="stylesheet" href="../css/category-list.css">
-
+    <link rel="stylesheet" href="../css/pagination.css">
 </head>
 
 <body>
@@ -29,32 +27,10 @@
                 </span>
                 <img class="icon" alt="Settings" src="../images/icons/settings-gear-icon.svg" />
                 <img class="icon" hidden alt="Notification" src="../images/icons/notification-icon.svg" />
-                <img id="user-avatar" alt="User Avatar" src="../images/logos/blogify-banner-light.svg" />
+                <img id="user-avatar" alt="User Avatar" src="../images/icons/blogify-banner-light.svg" />
             </div>
         </header>
         <main>
-        <article class="status-bar">
-            <article class="status-card">
-                <span class="title">Draft</span>
-                <span class="value">5</span>
-                <span class="info">Total Blogs: 5</span>
-            </article>
-            <article class="status-card">
-                <span class="title">Scheduled</span>
-                <span class="value">1</span>
-                <span class="info">Next Blog : <time datetime="2023-05-18T08:54:00">08:54 AM, 18 May 23</time></span>
-            </article>
-            <article class="status-card">
-                <span class="title">Published</span>
-                <span class="value">2</span>
-                <span class="info">Active Links: 2</span>
-            </article>
-            <article class="status-card">
-                <span class="title">Earnings</span>
-                <span class="value"">$0.00</span>
-            <span class=" info">Balance: $0.00</span>
-            </article>
-        </article>
             <article class="blog-list">
                 <section class="header">
                     <span class="title">My Blogs</span>
@@ -66,7 +42,7 @@
                             src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
                         <span class="blog-info">
                             <span class="blog-title">Gardening in my free time</span>
-                            <span class="blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                            <span class="blog-stats">Architecture · Scheduled · 2331 Words · 0 Links</span>
                         </span>
                     </span>
                     <span class="right">
@@ -80,7 +56,7 @@
                             src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
                         <span class="blog-info">
                             <span class="blog-title">Gardening in my free time</span>
-                            <span class="blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                            <span class="blog-stats">Architecture · Scheduled · 2331 Words · 0 Links</span>
                         </span>
                     </span>
                     <span class="right">
@@ -94,7 +70,7 @@
                             src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
                         <span class="blog-info">
                             <span class="blog-title">Gardening in my free time</span>
-                            <span class="blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                            <span class="blog-stats">Architecture · Scheduled · 2331 Words · 0 Links</span>
                         </span>
                     </span>
                     <span class="right">
@@ -102,38 +78,47 @@
                         <button type="button" class="secondary">Edit</button>
                     </span>
                 </section>
-                <section class="footer">
-                    <a>View All Blogs<a>
-                </section>
-            </article>
-            <article class="category-list">
-                <section class="header">
-                    <span class="title">My Categories</span>
-                    <button type="button" class="secondary">Create</button>
-                </section>
-            <section class="items">
-                <span class="category-info">
-                    <span class="category-name">Herbs</span>
-                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-                <span class="category-info">
-                    <span class="category-name">Herbs</span>
-                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-                <span class="category-info">
-                    <span class="category-name">Herbs</span>
-                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-                <span class="category-info">
-                    <span class="category-name">Herbs</span>
-                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-                <span class="category-info">
-                    <span class="category-name">Herbs</span>
-                    <span class="category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
             </article>
         </main>
+        <footer>
+            <span class="pagination">
+                <span class="page-numbers">
+                    <button type="button" class="secondary">
+                        <img id="arrow-left" src="../images/icons/arrow-right-icon.svg" />
+                    </button>
+                    <button type="button" class="secondary">
+                        3
+                    </button>
+                    <button type="button" class="secondary">
+                        4
+                    </button>
+                    <button type="button" class="primary">
+                        5
+                    </button>
+                    <button type="button" class="secondary">
+                        6
+                    </button>
+                    <button type="button" class="secondary">
+                        7
+                    </button>
+                    <button type="button" class="secondary">
+                        <img id="arrow-right" src="../images/icons/arrow-right-icon.svg" />
+                    </button>
+                </span>
+                <span class="page-info"">
+                    <span class="page-stats">
+                        Showing results 1 - 10 of 77
+                    </span>
+                    <label>Number of Items to Display:
+                    <select name="page-limit" id="page-limit">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">50</option>
+                    </select>
+                    </label>
+                </span>
+            </span>
+        </footer>
     </div>
 </body>
 
