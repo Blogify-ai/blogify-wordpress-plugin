@@ -1,5 +1,6 @@
 :root {
-  --blogify-primary-color: #f2470d;
+  --blogify-primary-color: #f2460d;
+  --blogify-primary-hover-color: #fb561f;
   --blogify-border-color: #e3dbd9;
   --blogify-soft-text-color:  #93766c;
 }
