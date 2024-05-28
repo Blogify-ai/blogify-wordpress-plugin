@@ -32,3 +32,10 @@ div.blogify article.status-card span.info {
     font-size: 13px;
     margin-top: 16px;
 }
+
+div.blogify article.status-card span.bottom-line {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
