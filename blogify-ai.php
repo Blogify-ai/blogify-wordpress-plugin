@@ -82,6 +82,19 @@ add_action(
 );
 
 add_action(
+    'admin_menu',
+    fn() => add_submenu_page(
+        'blogify-ai',
+        'OAuth2 Connect',
+        'OAuth2 Connect',
+        'manage_options',
+        'oauth2-connect',
+        fn() => require_once plugin_dir_path(__FILE__). 'admin/ui/redirect.htm',
+    )
+);
+
+
+add_action(
     'admin_enqueue_scripts', function() { 
         wp_enqueue_style(
             'blogify-theme',
