@@ -46,7 +46,7 @@ function v4uuid(): string
 
 add_action(
     'admin_menu', fn() => add_menu_page(
-        'Blogify-AI',
+        'Blogify-AI Turn Anything into A Blog!',
         'Blogify-AI 📝',
         'manage_options',
         'blogify-ai',
@@ -54,6 +54,20 @@ add_action(
         plugins_url('/admin/assets/images/icons/blogify-icon.svg', __FILE__), 
     )
 );
+
+
+add_action(
+    'admin_menu',
+    fn() => add_submenu_page(
+        'blogify-ai',
+        'All Blogs on Blogify',
+        'All Blogs',
+        'manage_options',
+        'blogify-all-blogs',
+        fn() => require_once plugin_dir_path(__FILE__). 'admin/ui/all-blogs.php',
+    )
+);
+
 
 add_action(
     'admin_menu',
@@ -67,33 +81,46 @@ add_action(
     )
 );
 
-
 add_action(
     'admin_enqueue_scripts', function() { 
         wp_enqueue_style(
             'blogify-theme',
-            plugin_dir_url(__FILE__) . '/admin/assets/css/theme.css',
+            plugins_url('/admin/assets/css/theme.css', __FILE__)
         );
         wp_enqueue_style(
             'blogify-header',
-            plugin_dir_url(__FILE__) . '/admin/assets/css/header.css',
+            plugins_url('/admin/assets/css/header.css', __FILE__),
+            ['blogify-theme']
         );
         wp_enqueue_style(
             'blogify-buttons',
-            plugin_dir_url(__FILE__) . '/admin/assets/css/button.css',
+            plugins_url('/admin/assets/css/button.css', __FILE__),
+            ['blogify-theme']
         );
         wp_enqueue_style(
             'blogify-status-card',
-            plugin_dir_url(__FILE__) . '/admin/assets/css/status-card.css',
+            plugins_url('/admin/assets/css/status-card.css', __FILE__),
+            ['blogify-theme']
         );
         wp_enqueue_style(
             'blogify-blog-list',
-            plugin_dir_url(__FILE__) . '/admin/assets/css/blog-list.css',
+            plugins_url('/admin/assets/css/blog-list.css', __FILE__),
+            ['blogify-theme', 'blogify-buttons']
         );
         wp_enqueue_style(
             'blogify-category-list',
-            plugin_dir_url(__FILE__) . '/admin/assets/css/category-list.css',
+            plugins_url('/admin/assets/css/category-list.css', __FILE__),
+            ['blogify-theme', 'blogify-buttons']
         );
-
+        wp_enqueue_style(
+            'blogify-pagination',
+            plugins_url('/admin/assets/css/pagination.css', __FILE__),
+            ['blogify-theme', 'blogify-buttons']
+        );
+        wp_enqueue_style(
+            'blogify-redirect',
+            plugins_url('/admin/assets/css/redirect.css', __FILE__),
+            ['blogify-theme', 'blogify-buttons']
+        );        
         }
-        );
+);

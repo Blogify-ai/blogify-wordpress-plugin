@@ -1,5 +1,5 @@
-
-    <div class="wrap blogify">
+<div class="wrap">
+    <div class="blogify">
         <header>
             <div class="left">
                 <img id="blogify-banner" alt="Blogify" src="../images/logos/blogify-banner.png" />
@@ -33,3 +33,4 @@
 
         </main>
     </div>
+</div>
