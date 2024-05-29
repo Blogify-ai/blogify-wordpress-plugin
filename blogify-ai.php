@@ -89,7 +89,7 @@ add_action(
         'OAuth2 Connect',
         'manage_options',
         'oauth2-connect',
-        fn() => require_once plugin_dir_path(__FILE__). 'admin/ui/redirect.htm',
+        fn() => require_once plugin_dir_path(__FILE__). 'admin/ui/redirect.php',
     )
 );
 
