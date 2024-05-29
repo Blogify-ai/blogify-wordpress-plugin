@@ -1,9 +1,20 @@
 :root {
   --blogify-primary-color: #f2460d;
   --blogify-primary-hover-color: #fb561f;
+  --blogify-primary-link-color: #f2460d;
   --blogify-border-color: #e3dbd9;
   --blogify-soft-text-color:  #93766c;
 }
+
+div.blogify {
+  background-color: white;
+  padding: 20px;
+}
+
+div.blogify a {
+  color: var(--blogify-primary-color);
+}
+
 
 div.blogify main {
   padding: 20px;

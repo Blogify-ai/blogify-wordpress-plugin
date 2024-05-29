@@ -2,7 +2,3 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
     die;
 }
-
-
-delete_option( 'blogify_email' );
-delete_option( 'blogify_password');
