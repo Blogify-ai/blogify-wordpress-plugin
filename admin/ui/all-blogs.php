@@ -1,21 +1,6 @@
 <div class="wrap">
     <div class="blogify">
-        <header>
-            <div class="left">
-                <img id="blogify-banner" alt="Blogify" src="../images/logos/blogify-banner.png" />
-            </div>
-            <div class="right">
-                <span id="credits">
-                    <img id="credits-logo" alt="Credits" src="../images/logos/blogify-logo-white.png" />
-                    <span>
-                        Credits: 800
-                    </span>
-                </span>
-                <img class="icon" alt="Settings" src="../images/icons/settings-gear-icon.svg" />
-                <img class="icon" hidden alt="Notification" src="../images/icons/notification-icon.svg" />
-                <img id="user-avatar" alt="User Avatar" src="../images/logos/blogify-banner-light.svg" />
-            </div>
-        </header>
+    <?php require_once 'components/header.php'; ?>   
         <main>
             <article class="blog-list">
                 <section class="header">
@@ -70,7 +55,7 @@
             <span class="pagination">
                 <span class="page-numbers">
                     <button type="button" class="secondary">
-                        <img class="arrow" src="../images/icons/arrow-end-left-icon.svg" />
+                        <img class="arrow" src="<?php echo $image_base; ?>icons/arrow-end-left-icon.svg" />
                     </button>
                     <button type="button" class="secondary">
                         3
@@ -88,7 +73,7 @@
                         7
                     </button>
                     <button type="button" class="secondary">
-                        <img class="arrow" src="../images/icons/arrow-end-right-icon.svg" />
+                        <img class="arrow" src="<?php echo $image_base; ?>/icons/arrow-end-right-icon.svg" />
                     </button>
                 </span>
                 <span class="page-info"">
