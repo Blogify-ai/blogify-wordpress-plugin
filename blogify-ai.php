@@ -50,7 +50,7 @@ add_action(
         'Blogify-AI 📝',
         'manage_options',
         'blogify-ai',
-        fn() => require_once plugin_dir_url(__FILE__) . 'admin/ui/dashboard.php',
+        fn() => require_once plugin_dir_path(__FILE__) . 'admin/ui/dashboard.php',
         plugins_url('/admin/assets/images/icons/blogify-icon.svg', __FILE__), 
     )
 );
@@ -60,10 +60,10 @@ add_action(
     fn() => add_submenu_page(
         'blogify-ai',
         'Blogify Subscription',
-        'Subscription 💲',
+        'Subscription',
         'manage_options',
         'blogify-subscription',
-        fn() => require_once plugin_dir_url(__FILE__). 'admin/ui/subscription.php',
+        fn() => require_once plugin_dir_path(__FILE__). 'admin/ui/subscription.php',
     )
 );
 
