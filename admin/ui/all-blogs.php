@@ -55,7 +55,7 @@
             <span class="pagination">
                 <span class="page-numbers">
                     <button type="button" class="secondary">
-                        <img class="arrow" src="<?php echo $image_base; ?>icons/arrow-end-left-icon.svg" />
+                        <img class="arrow-jump" src="<?php echo $image_base; ?>/images/icons/arrow-end-left-icon.svg" />
                     </button>
                     <button type="button" class="secondary">
                         3
@@ -73,7 +73,7 @@
                         7
                     </button>
                     <button type="button" class="secondary">
-                        <img class="arrow" src="<?php echo $image_base; ?>/icons/arrow-end-right-icon.svg" />
+                        <img class="arrow-jump" src="<?php echo $image_base; ?>/images/icons/arrow-end-right-icon.svg" />
                     </button>
                 </span>
                 <span class="page-info"">
