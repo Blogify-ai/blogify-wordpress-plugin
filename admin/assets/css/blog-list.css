@@ -19,7 +19,7 @@ div.blogify article.blogify-blog-list section.blogify-header span.blogify-title 
     font-weight: 600;
 }
 
-div.blogify article.blogify-blog-list section.blogify-items {
+div.blogify article.blogify-blog-list section.blogify-item {
     border-top: none;
     display: flex;
     justify-content: space-between;
@@ -27,19 +27,19 @@ div.blogify article.blogify-blog-list section.blogify-items {
     padding: 16px 24px;
 }
 
-div.blogify article.blogify-blog-list > *:nth-child(even) {
+div.blogify article.blogify-blog-list section.blogify-items section.blogify-item:nth-child(odd) {
     background-color: #f8f7f6;
 }
 
 
-div.blogify article.blogify-blog-list section.blogify-items img.blogify-blog-cover {
+div.blogify article.blogify-blog-list section.blogify-item img.blogify-blog-cover {
     width: 96px;
     aspect-ratio: 16/9;
     object-fit: cover;
     border-radius: 8px;
 }
 
-div.blogify article.blogify-blog-list section.blogify-items span.blogify-blog-info {
+div.blogify article.blogify-blog-list section.blogify-item span.blogify-blog-info {
     flex: 1;
     flex-direction: column;
     justify-content: space-between;
@@ -47,13 +47,13 @@ div.blogify article.blogify-blog-list section.blogify-items span.blogify-blog-in
     display: flex;
 }
 
-div.blogify article.blogify-blog-list section.blogify-items span.blogify-blog-stats {
+div.blogify article.blogify-blog-list section.blogify-item span.blogify-blog-stats {
     color: var(--blogify-soft-text-color);
     font-size: 13px;
     font-weight: 500;
 }
 
-div.blogify article.blogify-blog-list section.blogify-items span.blogify-blogtitle {
+div.blogify article.blogify-blog-list section.blogify-item span.blogify-blogtitle {
     font-size: 15px;
     font-weight: 700;
 }

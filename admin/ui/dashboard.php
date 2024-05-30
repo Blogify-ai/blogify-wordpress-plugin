@@ -16,7 +16,7 @@
             <article class="blogify-status-card">
                 <span class="blogify-title">Published</span>
                 <span class="blogify-value">2</span>
-                <span class="blogify-info">Active Links: 2</span>
+                <span class="blogify-info">Active Links: 0</span>
             </article>
             <article class="blogify-status-card">
                 <span class="blogify-title">Earnings</span>
@@ -30,82 +30,56 @@
                         <span class="blogify-title">My Blogs</span>
                     </span>
                     <span class="blogify-right">
-                        <button type="button" class="blogify-secondary">View All</button>
+                        <button type="button" class="blogify-primary">View All</button>
                         <button type="button" class="blogify-primary">Create</button>
                     </span>
                 </section>
-                <section class="blogify-items">
-                    
-                <section class="blogify-items">
-                    <span class="blogify-left">
-                        <img class="blogify-blog-cover" alt="Blog Cover"
-                            src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
-                        <span class="blogify-blog-info">
-                            <span class="blogify-blog-title">Gardening in my free time</span>
-                            <span class="blogify-blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                <section class="blogify-items">      
+                    <section class="blogify-item">
+                        <span class="blogify-left">
+                            <img class="blogify-blog-cover" alt="Blog Cover"
+                                src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
+                            <span class="blogify-blog-info">
+                                <span class="blogify-blog-title">Gardening in my free time</span>
+                                <span class="blogify-blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                            </span>
                         </span>
-                    </span>
-                    <span class="blogify-right">
-                        <button type="button" class="blogify-secondary">View</button>
-                        <button type="button" class="blogify-secondary">Edit</button>
-                    </span>
-                </section>
-                <section class="blogify-items">
-                    <span class="blogify-left">
-                        <img class="blogify-blog-cover" alt="Blog Cover"
-                            src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
-                        <span class="blogify-blog-info">
-                            <span class="blogify-blog-title">Gardening in my free time</span>
-                            <span class="blogify-blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                        <span class="blogify-right">
+                            <button type="button" class="blogify-secondary">View</button>
+                            <button type="button" class="blogify-secondary">Edit</button>
                         </span>
-                    </span>
-                    <span class="blogify-right">
-                        <button type="button" class="blogify-secondary">View</button>
-                        <button type="button" class="blogify-secondary">Edit</button>
-                    </span>
-                </section>
-                <section class="blogify-items">
-                    <span class="blogify-left">
-                        <img class="blogify-blog-cover" alt="Blog Cover"
-                            src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
-                        <span class="blogify-blog-info">
-                            <span class="blogify-blog-title">Gardening in my free time</span>
-                            <span class="blogify-blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                    </section>
+                    <section class="blogify-item">
+                        <span class="blogify-left">
+                            <img class="blogify-blog-cover" alt="Blog Cover"
+                                src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
+                            <span class="blogify-blog-info">
+                                <span class="blogify-blog-title">Gardening in my free time</span>
+                                <span class="blogify-blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                            </span>
                         </span>
-                    </span>
-                    <span class="blogify-right">
-                        <button type="button" class="blogify-secondary">View</button>
-                        <button type="button" class="blogify-secondary">Edit</button>
-                    </span>
+                        <span class="blogify-right">
+                            <button type="button" class="blogify-secondary">View</button>
+                            <button type="button" class="blogify-secondary">Edit</button>
+                        </span>
+                    </section>
+                    <section class="blogify-item">
+                        <span class="blogify-left">
+                            <img class="blogify-blog-cover" alt="Blog Cover"
+                                src="https://i.ytimg.com/vi/e4Tk-kcOmUA/maxresdefault.jpg" />
+                            <span class="blogify-blog-info">
+                                <span class="blogify-blog-title">Gardening in my free time</span>
+                                <span class="blogify-blog-stats">Architecture  ·  Scheduled  ·  2331 Words  ·  0 Links</span>
+                            </span>
+                        </span>
+                        <span class="blogify-right">
+                            <button type="button" class="blogify-secondary">View</button>
+                            <button type="button" class="blogify-secondary">Edit</button>
+                        </span>
+                    </section>
                 </section>
             </article>
-            <article class="blogify-category-list">
-                <section class="blogify-header">
-                    <span class="blogify-title">My Categories</span>
-                    <button type="button" class="blogify-primary">Create</button>
-                </section>
-            <section class="blogify-items">
-                <span class="blogify-category-info">
-                    <span class="blogify-category-name">Herbs</span>
-                    <span class="blogify-category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-                <span class="blogify-category-info">
-                    <span class="blogify-category-name">Herbs</span>
-                    <span class="blogify-category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-                <span class="blogify-category-info">
-                    <span class="blogify-category-name">Herbs</span>
-                    <span class="blogify-category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-                <span class="blogify-category-info">
-                    <span class="blogify-category-name">Herbs</span>
-                    <span class="blogify-category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-                <span class="blogify-category-info">
-                    <span class="blogify-category-name">Herbs</span>
-                    <span class="blogify-category-stats">Draft: 8  ·  Scheduled: 2  ·  Published : 16</span>
-                </span>
-            </article>
+            <?php require_once 'components/category-list.php'; ?>
         </main>
     </div>
 </div>

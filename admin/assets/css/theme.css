@@ -18,7 +18,7 @@ div.blogify a {
 
 div.blogify main {
   padding: 20px;
-  gap: 16px;
+  gap: 30px;
   display: flex;
   flex-direction: column;
 }
