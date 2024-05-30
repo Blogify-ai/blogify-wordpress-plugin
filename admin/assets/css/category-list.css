@@ -13,7 +13,6 @@ div.blogify article.blogify-category-list section.blogify-header {
     align-items: center;
     padding: 16px;
     border-bottom: solid 1px var(--blogify-border-color);
-    background-color:  #f8f7f6;
 }
 
 div.blogify article.blogify-category-list section.blogify-header span.blogify-title {
@@ -30,6 +29,7 @@ div.blogify article.blogify-category-list section.blogify-items {
     justify-content: space-between;
     align-items: center;
     gap: 16px;
+    background-image: linear-gradient(to bottom, #fff, #f4f1f0);
 }
 
 div.blogify article.blogify-category-list section.blogify-items span.blogify-category-info {
@@ -41,6 +41,7 @@ div.blogify article.blogify-category-list section.blogify-items span.blogify-cat
     border: solid 1px var(--blogify-border-color);
     border-radius: 10px;
     padding: 16px;
+    background-color: #fff;
 }
 
 
