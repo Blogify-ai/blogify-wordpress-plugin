@@ -3,7 +3,7 @@ div.blogify article.blog-list {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: solid 1px #e3dbd9;
+    border: solid 1px var(--blogify-border-color);
     border-radius: 10px;
 }
 
