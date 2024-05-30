@@ -26,9 +26,16 @@
         </article>
             <article class="blogify-blog-list">
                 <section class="blogify-header">
-                    <span class="blogify-title">My Blogs</span>
-                    <button type="button" class="blogify-primary">Create Blog</button>
+                    <span class ="blogify-left">
+                        <span class="blogify-title">My Blogs</span>
+                    </span>
+                    <span class="blogify-right">
+                        <button type="button" class="blogify-secondary">View All</button>
+                        <button type="button" class="blogify-primary">Create</button>
+                    </span>
                 </section>
+                <section class="blogify-items">
+                    
                 <section class="blogify-items">
                     <span class="blogify-left">
                         <img class="blogify-blog-cover" alt="Blog Cover"
@@ -70,9 +77,6 @@
                         <button type="button" class="blogify-secondary">View</button>
                         <button type="button" class="blogify-secondary">Edit</button>
                     </span>
-                </section>
-                <section class="blogify-footer">
-                    <a>View All Blogs</a>
                 </section>
             </article>
             <article class="blogify-category-list">

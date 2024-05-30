@@ -19,16 +19,6 @@ div.blogify article.blogify-blog-list section.blogify-header span.blogify-title 
     font-weight: 600;
 }
 
-div.blogify article.blogify-blog-list section.blogify-footer {
-    padding: 10px;
-}
-
-div.blogify article.blogify-blog-list section.blogify-footer a {
-    color: var(--blogify-primary-color);
-    font-size: 13px;
-    font-weight: 500;
-}
-
 div.blogify article.blogify-blog-list section.blogify-items {
     border-top: none;
     display: flex;
