@@ -1,16 +1,16 @@
-div.wrap article.redirect span.instructions h1 {
+div.wrap article.blogify-redirect span.blogify-instructions h1 {
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-div.wrap article.redirect span.instructions h3 {
+div.wrap article.blogify-redirect span.blogify-instructions h3 {
     font-size: 18px;
     color: #666;
     /* Grayish text for explanation */
     margin-bottom: 20px;
 }
 
-div.wrap article.redirect {
+div.wrap article.blogify-redirect {
     text-align: center;
     background-color: #ffffff;
     padding: 40px;
@@ -19,7 +19,7 @@ div.wrap article.redirect {
     margin: 20px;
 }
 
-div.wrap span.instructions {
+div.wrap span.blogify-instructions {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -28,7 +28,7 @@ div.wrap span.instructions {
     gap: 30px;
 }
 
-div.wrap section.logos {
+div.wrap section.blogify-logos {
     flex: 1;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -37,14 +37,14 @@ div.wrap section.logos {
     display: flex;
 }
 
-div.wrap section.logos img#blogify-banner {
+div.wrap section.blogify-logos img#blogify-banner {
     height: 50px;
 }
 
-div.wrap section.logos img#two-way-arrow {
+div.wrap section.blogify-logos img#blogify-two-way-arrow {
     height: 80px;
 }
 
-div.wrap section.logos img#wordpress-banner {
+div.wrap section.blogify-logos img#blogify-wordpress-banner {
     height: 100px;
 }

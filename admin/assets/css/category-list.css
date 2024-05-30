@@ -1,26 +1,27 @@
-div.blogify article.category-list {
+div.blogify article.blogify-category-list {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: solid 1px #e3dbd9;
+    border: solid 1px var(--blogify-border-color);
     border-radius: 10px;
 }
 
-div.blogify article.category-list section.header {
+div.blogify article.blogify-category-list section.blogify-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px;
     border-bottom: solid 1px var(--blogify-border-color);
+    background-color:  #f8f7f6;
 }
 
-div.blogify article.category-list section.header span.title {
+div.blogify article.blogify-category-list section.blogify-header span.blogify-title {
     font-size: 19px;
     font-weight: 600;
 }
 
-div.blogify article.category-list section.items {
+div.blogify article.blogify-category-list section.blogify-items {
     flex: 1;
     flex-direction: row;
     flex-wrap: wrap;
@@ -31,7 +32,7 @@ div.blogify article.category-list section.items {
     gap: 16px;
 }
 
-div.blogify article.category-list section.items span.category-info {
+div.blogify article.blogify-category-list section.blogify-items span.blogify-category-info {
     flex: 1;
     flex-direction: column;
     justify-content: space-between;
@@ -43,12 +44,12 @@ div.blogify article.category-list section.items span.category-info {
 }
 
 
-div.blogify article.category-list section.items span.category-name {
+div.blogify article.blogify-category-list section.blogify-items span.blogify-category-name {
     font-size: 19px;
     font-weight: 600;
 }
 
-div.blogify article.category-list section.items span.category-stats {
+div.blogify article.blogify-category-list section.blogify-items span.blogify-category-stats {
     font-size: 13px;
     font-weight: 500;
     color: var(--blogify-soft-text-color);

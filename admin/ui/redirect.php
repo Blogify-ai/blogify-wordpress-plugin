@@ -4,16 +4,16 @@
 
 <div class="wrap">
     <main>
-        <section class="logos">
+        <section class="blogify-logos">
             <img id="blogify-banner" src="<?php echo $asset_base; ?>/images/logos/blogify-banner.png" alt="Blogify Logo">
-            <img id="two-way-arrow" src="<?php echo $asset_base; ?>/images/icons/arrow-goes-left-right-icon.svg"
+            <img id="blogify-two-way-arrow" src="<?php echo $asset_base; ?>/images/icons/arrow-goes-left-right-icon.svg"
                 alt="Arrow Goes Left Right Icon">
-            <img id="wordpress-banner" src="<?php echo $asset_base; ?>/images/logos/wordpress-black-banner.png" alt="WordPress Logo">
+            <img id="blogify-wordpress-banner" src="<?php echo $asset_base; ?>/images/logos/wordpress-black-banner.png" alt="WordPress Logo">
         </section>
-        <article class="redirect">
-            <span class="instructions">
+        <article class="blogify-redirect">
+            <span class="blogify-instructions">
                 <h1>Seamless Integration with <?php echo ucfirst(wp_get_current_user()->display_name . "'s" ?? "Your"); ?> WordPress Site</h1>
-                <span class="description">
+                <span class="blogify-description">
                     <h3>To establish a connection, a prompt may appear requesting authorization.<br>
                         Should the automatic process not initiate, kindly click the <a
                             href="http://example.com/alternate_url.html">link</a> here to proceed.

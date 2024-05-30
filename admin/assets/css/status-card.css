@@ -1,10 +1,10 @@
-div.blogify article.status-bar {
+div.blogify article.blogify-status-bar {
     display: flex;
     width: 100%;
     gap: 15px
 }
 
-div.blogify article.status-card {
+div.blogify article.blogify-status-card {
     flex: 1;
     gap: 8px;
     display: flex;
@@ -17,23 +17,23 @@ div.blogify article.status-card {
     justify-content: space-evenly;
 }
 
-div.blogify article.status-card span.title {
+div.blogify article.blogify-status-card span.blogify-title {
     font-size: 15px;
     font-weight: 500;
 }
 
-div.blogify article.status-card span.value {
+div.blogify article.blogify-status-card span.blogify-value {
     font-size: 28px;
     font-weight: 600;
 }
 
-div.blogify article.status-card span.info {
+div.blogify article.blogify-status-card span.blogify-info {
     color: var(--blogify-soft-text-color);
     font-size: 13px;
     margin-top: 16px;
 }
 
-div.blogify article.status-card span.bottom-line {
+div.blogify article.blogify-status-card span.blogify-bottom-line {
     flex: 1;
     display: flex;
     justify-content: space-between;

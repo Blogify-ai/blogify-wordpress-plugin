@@ -23,22 +23,22 @@ div.blogify main {
   flex-direction: column;
 }
 
-div.blogify *>.left {
+div.blogify *>.blogify-left {
   display: flex;
   align-items: center;
   margin-right: auto;
 }
 
-div.blogify *>.right {
+div.blogify *>.blogify-right {
   display: flex;
   align-items: center;
   margin-left: auto;
 }
 
-div.blogify * .left> * {
+div.blogify * .blogify-left> * {
   margin-right: 10px;
 }
 
-div.blogify * .right> * {
+div.blogify * .blogify-right> * {
   margin-left: 10px;
 }

@@ -1,4 +1,4 @@
-div.blogify article.blog-list {
+div.blogify article.blogify-blog-list {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -7,29 +7,29 @@ div.blogify article.blog-list {
     border-radius: 10px;
 }
 
-div.blogify article.blog-list section.header {
+div.blogify article.blogify-blog-list section.blogify-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
 }
 
-div.blogify article.blog-list section.header span.title {
+div.blogify article.blogify-blog-list section.blogify-header span.blogify-title {
     font-size: 19px;
     font-weight: 600;
 }
 
-div.blogify article.blog-list section.footer {
+div.blogify article.blogify-blog-list section.blogify-footer {
     padding: 10px;
 }
 
-div.blogify article.blog-list section.footer a {
+div.blogify article.blogify-blog-list section.blogify-footer a {
     color: var(--blogify-primary-color);
     font-size: 13px;
     font-weight: 500;
 }
 
-div.blogify article.blog-list section.items {
+div.blogify article.blogify-blog-list section.blogify-items {
     border-top: none;
     display: flex;
     justify-content: space-between;
@@ -37,19 +37,19 @@ div.blogify article.blog-list section.items {
     padding: 16px 24px;
 }
 
-div.blogify article.blog-list > *:nth-child(even) {
+div.blogify article.blogify-blog-list > *:nth-child(even) {
     background-color: #f8f7f6;
 }
 
 
-div.blogify article.blog-list section.items img.blog-cover {
+div.blogify article.blogify-blog-list section.blogify-items img.blogify-blog-cover {
     width: 96px;
     aspect-ratio: 16/9;
     object-fit: cover;
     border-radius: 8px;
 }
 
-div.blogify article.blog-list section.items span.blog-info {
+div.blogify article.blogify-blog-list section.blogify-items span.blogify-blog-info {
     flex: 1;
     flex-direction: column;
     justify-content: space-between;
@@ -57,14 +57,13 @@ div.blogify article.blog-list section.items span.blog-info {
     display: flex;
 }
 
-div.blogify article.blog-list section.items span.blog-stats {
+div.blogify article.blogify-blog-list section.blogify-items span.blogify-blog-stats {
     color: var(--blogify-soft-text-color);
     font-size: 13px;
     font-weight: 500;
 }
 
-div.blogify article.blog-list section.items span.blog-title {
+div.blogify article.blogify-blog-list section.blogify-items span.blogify-blogtitle {
     font-size: 15px;
     font-weight: 700;
 }
-

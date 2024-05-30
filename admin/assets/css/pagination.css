@@ -1,4 +1,4 @@
-div.blogify span.pagination {
+div.blogify span.blogify-pagination {
     display: flex;
     justify-content: center;
     flex: 1;
@@ -6,18 +6,18 @@ div.blogify span.pagination {
     gap:16px;
 }
 
-div.blogify span.pagination span.page-numbers {
+div.blogify span.blogify-pagination span.blogify-page-numbers {
     display: flex;
     justify-content: center;
     flex: 1;
     gap: 5px;
 }
 
-div.blogify span.pagination span.page-numbers img.arrow-jump{
+div.blogify span.blogify-pagination span.blogify-page-numbers img.blogify-arrow-jump{
     height: 10px;
 }
 
-div.blogify span.pagination span.page-info {
+div.blogify span.blogify-pagination span.blogify-page-info {
     display: flex;
     justify-content: center;
     align-items: center;
