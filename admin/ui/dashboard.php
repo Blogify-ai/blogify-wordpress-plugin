@@ -3,26 +3,13 @@
     <?php require_once 'components/header.php'; ?>    
     <main>
         <article class="blogify-status-bar">
-            <article class="blogify-status-card">
-                <span class="blogify-title">Draft</span>
-                <span class="blogify-value">5</span>
-                <span class="blogify-info">Total Blogs: 5</span>
-            </article>
-            <article class="blogify-status-card">
-                <span class="blogify-title">Scheduled</span>
-                <span class="blogify-value">1</span>
-                <span class="blogify-info">Next Blog : <time datetime="2023-05-18T08:54:00">08:54 AM, 18 May 23</time></span>
-            </article>
-            <article class="blogify-status-card">
-                <span class="blogify-title">Published</span>
-                <span class="blogify-value">2</span>
-                <span class="blogify-info">Active Links: 0</span>
-            </article>
-            <article class="blogify-status-card">
-                <span class="blogify-title">Earnings</span>
-                <span class="blogify-value"">$0.00</span>
-            <span class="blogify-info">Balance: $0.00</span>
-            </article>
+        <?php 
+            require_once 'components/status-card.php';
+            echo blogify_status_card() .
+             blogify_status_card() .
+             blogify_status_card() .
+             blogify_status_card();
+        ?>  
         </article>
             <article class="blogify-blog-list">
                 <section class="blogify-header">
