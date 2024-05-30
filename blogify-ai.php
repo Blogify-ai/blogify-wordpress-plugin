@@ -29,6 +29,19 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
+// Constants
+DEFINE('BLOGIFY_VERSION', '1.0.0');
+
+DEFINE('BLOGIFY_ASSETS_URL', plugins_url('/admin/assets/', __FILE__));
+DEFINE('BLOGIFY_IMAGES_URL', BLOGIFY_ASSETS_URL . 'images/');
+DEFINE('BLOGIFY_CSS_URL', BLOGIFY_ASSETS_URL . 'css/');
+DEFINE('BLOGIFY_JS_URL', BLOGIFY_ASSETS_URL . 'js/');
+
+DEFINE('BLOGIFY_PLUGIN_DIR', plugin_dir_path(__FILE__));
+DEFINE('BLOGIFY_UI_PAGES_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/');
+DEFINE('BLOGIFY_UI_COMPONENTS_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/components');
+
+
 /**
  * Generates a Version 4 (random) UUID.
  *
@@ -50,8 +63,8 @@ add_action(
         'Blogify-AI 📝',
         'manage_options',
         'blogify-ai',
-        fn() => require_once plugin_dir_path(__FILE__) . 'admin/ui/dashboard.php',
-        plugins_url('/admin/assets/images/icons/blogify-icon.svg', __FILE__), 
+        fn() => require_once BLOGIFY_UI_PAGES_DIR . 'dashboard.php',
+        BLOGIFY_IMAGES_URL . 'icons/blogify-navigation.svg', 
     )
 );
 
