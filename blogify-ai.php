@@ -59,6 +59,11 @@ function v4uuid(): string
 
 if (get_option('blogify_oauth2_tokens', null)) {
 
+    add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($actions) {
+        $actions[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=blogify-ai')) . '">Dashboard</a>';
+        return $actions;
+    });
+
     add_action(
         'admin_menu', fn() => add_menu_page(
             'Blogify-AI Turn Anything into A Blog!',
@@ -94,6 +99,12 @@ if (get_option('blogify_oauth2_tokens', null)) {
         )
     );
 } else {
+    add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($actions) {
+        $actions[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=oauth2-connect')) . '">Connect this site to Blogify.ai</a>';
+        return $actions;
+    });
+
+    
     add_action(
         'admin_menu', fn() => add_menu_page(
             'Connect to Blogify!',
@@ -101,7 +112,7 @@ if (get_option('blogify_oauth2_tokens', null)) {
             'manage_options',
             'oauth2-connect',
             fn() => require_once BLOGIFY_UI_PAGES_DIR . 'redirect.php',
-            BLOGIFY_IMAGES_URL . 'icons/blogify-navigation.svg', 
+            BLOGIFY_IMAGES_URL . 'icons/blogify-navigation.svg',
         )
     );
 }
