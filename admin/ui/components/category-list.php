@@ -1,4 +1,12 @@
-<article class="blogify-category-list">
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
+?>
+
+<article class="blogify-category-list" style="display:none">
     <section class="blogify-header">
         <span class="blogify-title">My Categories</span>
         <button type="button" class="blogify-primary">Create</button>

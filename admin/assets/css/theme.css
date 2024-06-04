@@ -11,11 +11,6 @@ div.blogify {
   padding: 20px;
 }
 
-div.blogify a {
-  color: var(--blogify-primary-color);
-}
-
-
 div.blogify main {
   padding: 20px;
   gap: 30px;

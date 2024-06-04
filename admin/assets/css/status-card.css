@@ -6,7 +6,7 @@ div.blogify article.blogify-status-bar {
 
 div.blogify article.blogify-status-card {
     flex: 1;
-    gap: 8px;
+    gap: 16px;
     display: flex;
     border: 1px solid #ccc;
     padding: 13px;

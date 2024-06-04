@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../css/theme.css">
-    <link rel="stylesheet" href="../css/button.css">
-    <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/blog-list.css">
-    <link rel="stylesheet" href="../css/pagination.css">
+    <link rel="stylesheet" href="./theme.css">
+    <link rel="stylesheet" href="./button.css">
+    <link rel="stylesheet" href="./header.css">
+    <link rel="stylesheet" href="./blog-list.css">
+    <link rel="stylesheet" href="./pagination.css">
 </head>
 
 <body>
@@ -82,43 +82,48 @@
         </main>
         <footer>
             <span class="pagination">
-                <span class="page-numbers">
-                    <button type="button" class="secondary">
-                        <img class="arrow" src="../images/icons/arrow-end-left-icon.svg" />
-                    </button>
-                    <button type="button" class="secondary">
-                        3
-                    </button>
-                    <button type="button" class="secondary">
-                        4
-                    </button>
-                    <button type="button" class="primary">
-                        5
-                    </button>
-                    <button type="button" class="secondary">
-                        6
-                    </button>
-                    <button type="button" class="secondary">
-                        7
-                    </button>
-                    <button type="button" class="secondary">
-                        <img class="arrow" src="../images/icons/arrow-end-right-icon.svg" />
-                    </button>
-                </span>
-                <span class="page-info"">
-                    <span class="page-stats">
-                        Showing Results 1 - 10 of 77
+                <form method="GET" action="">
+                    <span class="page-numbers">
+                        <button type="submit" name="page-number" value="1" class="secondary">
+                            <img class="arrow" src="../images/icons/arrow-end-left-icon.svg" />
+                        </button>
+                        <button type="submit" name="page-number" value="3" class="secondary">
+                            3
+                        </button>
+                        <button type="submit" name="page-number" value="4" class="secondary">
+                            4
+                        </button>
+                        <button type="submit" name="page-number" value="5" class="primary">
+                            5
+                        </button>
+                        <button type="submit" name="page-number" value="6" class="secondary">
+                            6
+                        </button>
+                        <button type="submit" name="page-number" value="7" class="secondary">
+                            7
+                        </button>
+                        <button type="submit" name="page-number" value="8" class="secondary">
+                            <img class="arrow" src="../images/icons/arrow-end-right-icon.svg" />
+                        </button>
                     </span>
-                    <label>Number of Items to Display:
-                    <select name="page-limit" id="page-limit">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">50</option>
-                    </select>
-                    </label>
-                </span>
+                    <span class="page-info">
+                        <span class="page-stats">
+                            Showing Results 1 - 10 of 77
+                        </span>
+                        <label>Number of Items to Display:
+                            <select name="page-size" id="page-limit">
+                                <button type="submit">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                            </button>
+                            </select>
+                        </label>
+                    </span>
+                </form>
             </span>
         </footer>
+        
     </div>
 </body>
 

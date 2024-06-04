@@ -1,4 +1,10 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
+
 /**
  * Determines a navigation bar for pagination.
  *
@@ -29,19 +35,19 @@ function determinePageNavigationBar(int $number_of_pages, int $current_page, int
     ];
 }
 
-function blogify_page_navigation_bar(int $number_of_pages, int $current_page) {
+function blogify_page_navigation_bar(int $number_of_pages, int $current_page, string $image_base) {
     $navigation_bar = determinePageNavigationBar($number_of_pages, $current_page);
     $goto_first_button = $navigation_bar['preArrow'] ? 
                             <<<END
-                            <button type="button" class="blogify-secondary">
-                                <img class="blogify-arrow-jump" src="$image_base/icons/arrow-end-left-icon.svg" />
+                            <button type="submit" name="page-number" value="1" class="blogify-secondary">
+                                <img class="blogify-arrow-jump" src="{$image_base}icons/arrow-end-left.svg" />
                             </button>
                             END
                             : '';
     $goto_last_button = $navigation_bar['postArrow'] ?
                         <<<END
-                        <button type="button" class="blogify-secondary">
-                            <img class="blogify-arrow-jump" src="$image_base/icons/arrow-end-right-icon.svg" />
+                        <button type="submit" name="page-number" value="{$number_of_pages}" class="blogify-secondary">
+                            <img class="blogify-arrow-jump" src="{$image_base}icons/arrow-end-right.svg" />
                         </button>
                         END
                         : '';
@@ -53,7 +59,7 @@ function blogify_page_navigation_bar(int $number_of_pages, int $current_page) {
 
     $preceeding_page_buttons = implode("\n", array_map(
         fn($num) => <<<END
-        <button type="button" class="blogify-secondary">
+        <button type="submit" name="page-number" value="{$num}" class="blogify-secondary">
             $num
         </button>
         END
@@ -62,7 +68,7 @@ function blogify_page_navigation_bar(int $number_of_pages, int $current_page) {
 
     $succeeding_page_buttons = implode("\n", array_map(
         fn($num) => <<<END
-        <button type="button" class="blogify-secondary">
+        <button type="submit" name="page-number" value="{$num}" class="blogify-secondary">
             $num
         </button>
         END
@@ -81,27 +87,34 @@ function blogify_page_navigation_bar(int $number_of_pages, int $current_page) {
     END;
 }
 
-function blogify_page_info(int $number_of_pages, int $current_page) {
-            return <<<END
+function blogify_page_info(int $total_blogs, int $current_page, int $page_size) {
+    $starting_blog = ($current_page - 1) * $page_size + 1;
+    $ending_blog = $starting_blog + $page_size - 1;
+        
+    return <<<END
                 <span class="blogify-page-info"">
                     <span class="blogify-page-stats">
-                        Showing Results 1 - 10 of 77
+                        Showing Results {$starting_blog} - {$ending_blog} of $total_blogs
                     </span>
-                    <label>Number of Items to Display:
-                    <select name="page-limit" id="page-limit">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">50</option>
-                    </select>
-                    </label>
-                </span>
                 END;
 }
 
+function construct_pagination(int $current_page, int $total_blogs, int $page_size, int $total_pages, string $image_base) {
+    $page_navigation_bar = blogify_page_navigation_bar($total_pages, $current_page, $image_base);
+    $page_info = blogify_page_info($total_blogs, $current_page, $page_size);
+    $form_action = admin_url( "admin.php");
+    $current_page = $_GET['page'];
+    return <<<END
+        <form method="GET" action="{$form_action}">
+            <input type="hidden" name="page" value="{$_GET['page']}" />
+                <span class="blogify-pagination">    
+                $page_navigation_bar
+                $page_info
+        </span>
+        </form>
+    END;
+
+
+}
 
 ?>
-<span class="blogify-pagination">
-            <?php  echo blogify_page_navigation_bar(77, 1) .
-                    blogify_page_info(77, 1);
-            ?>                   
-            </span>

@@ -40,7 +40,7 @@ DEFINE('BLOGIFY_JS_URL', BLOGIFY_ASSETS_URL . 'js/');
 DEFINE('BLOGIFY_PLUGIN_DIR', plugin_dir_path(__FILE__));
 DEFINE('BLOGIFY_UI_PAGES_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/');
 DEFINE('BLOGIFY_UI_COMPONENTS_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/components');
-
+DEFINE('BLOGIFY_INI_PATH', BLOGIFY_PLUGIN_DIR . 'blogify-ai.ini');
 
 /**
  * Generates a Version 4 (random) UUID.
@@ -57,58 +57,57 @@ function v4uuid(): string
     return "$a$b$c$d$e";
 }
 
+if (get_option('blogify_oauth2_tokens', null)) {
+
+    add_action(
+        'admin_menu', fn() => add_menu_page(
+            'Blogify-AI Turn Anything into A Blog!',
+            'Blogify-AI 📝',
+            'manage_options',
+            'blogify-ai',
+            fn() => require_once BLOGIFY_UI_PAGES_DIR . 'dashboard.php',
+            BLOGIFY_IMAGES_URL . 'icons/blogify-navigation.svg',
+        )
+    );
+
+    add_action(
+        'admin_menu',
+        fn() => add_submenu_page(
+            'blogify-ai',
+            'All Blogs on Blogify',
+            'All Blogs',
+            'manage_options',
+            'blogify-all-blogs',
+            fn() => require_once BLOGIFY_UI_PAGES_DIR . 'all-blogs.php',
+        )
+    );
+
+    add_action(
+        'admin_menu',
+        fn() => add_submenu_page(
+            'blogify-ai',
+            'Blogify Subscription',
+            'Subscription',
+            'manage_options',
+            'blogify-subscription',
+            fn() => require_once BLOGIFY_UI_PAGES_DIR . 'subscription.php',
+        )
+    );
+} else {
+    add_action(
+        'admin_menu', fn() => add_menu_page(
+            'Connect to Blogify!',
+            'Blogify-AI 📝',
+            'manage_options',
+            'oauth2-connect',
+            fn() => require_once BLOGIFY_UI_PAGES_DIR . 'redirect.php',
+            BLOGIFY_IMAGES_URL . 'icons/blogify-navigation.svg', 
+        )
+    );
+}
+
 add_action(
-    'admin_menu', fn() => add_menu_page(
-        'Blogify-AI Turn Anything into A Blog!',
-        'Blogify-AI 📝',
-        'manage_options',
-        'blogify-ai',
-        fn() => require_once BLOGIFY_UI_PAGES_DIR . 'dashboard.php',
-        BLOGIFY_IMAGES_URL . 'icons/blogify-navigation.svg', 
-    )
-);
-
-
-add_action(
-    'admin_menu',
-    fn() => add_submenu_page(
-        'blogify-ai',
-        'All Blogs on Blogify',
-        'All Blogs',
-        'manage_options',
-        'blogify-all-blogs',
-        fn() => require_once BLOGIFY_UI_PAGES_DIR . 'all-blogs.php',
-    )
-);
-
-
-add_action(
-    'admin_menu',
-    fn() => add_submenu_page(
-        'blogify-ai',
-        'Blogify Subscription',
-        'Subscription',
-        'manage_options',
-        'blogify-subscription',
-        fn() => require_once BLOGIFY_UI_PAGES_DIR . 'subscription.php',
-    )
-);
-
-add_action(
-    'admin_menu',
-    fn() => add_submenu_page(
-        'blogify-ai',
-        'OAuth2 Connect',
-        'OAuth2 Connect',
-        'manage_options',
-        'oauth2-connect',
-        fn() => require_once BLOGIFY_UI_PAGES_DIR . 'redirect.php',
-    )
-);
-
-
-add_action(
-    'admin_enqueue_scripts', function() { 
+    'admin_enqueue_scripts', function () {
         wp_enqueue_style(
             'blogify-theme',
             BLOGIFY_CSS_URL . 'theme.css'
@@ -147,6 +146,10 @@ add_action(
             'blogify-redirect',
             BLOGIFY_CSS_URL . 'redirect.css',
             ['blogify-theme', 'blogify-buttons']
-        );        
-        }
+        );
+    }
 );
+
+add_action("deactivate_" . plugin_basename(__FILE__), function () {
+    delete_option('blogify_oauth2_tokens');
+});
