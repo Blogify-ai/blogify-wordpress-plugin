@@ -42,20 +42,8 @@ DEFINE('BLOGIFY_UI_PAGES_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/');
 DEFINE('BLOGIFY_UI_COMPONENTS_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/components');
 DEFINE('BLOGIFY_INI_PATH', BLOGIFY_PLUGIN_DIR . 'blogify-ai.ini');
 
-/**
- * Generates a Version 4 (random) UUID.
- *
- * @return string Returns a Version 4 UUID.
- */
-function v4uuid(): string
-{
-    $a = str_pad(dechex(random_int(0x0000_0000, 0xffff_ffff)), '0', STR_PAD_LEFT);
-    $b = str_pad(dechex(random_int(0x0000, 0xffff)), '0', STR_PAD_LEFT);
-    $c = dechex(random_int(0x4000, 0x4fff));
-    $d = dechex(random_int(0x8000, 0xbfff));
-    $e = str_pad(dechex(random_int(0x0000_0000_0000, 0xffff_ffff_ffff)), '0', STR_PAD_LEFT);
-    return "$a$b$c$d$e";
-}
+require_once BLOGIFY_PLUGIN_DIR . 'admin/actions/rest.php';
+
 
 if (get_option('blogify_oauth2_tokens', null)) {
 
@@ -99,6 +87,7 @@ if (get_option('blogify_oauth2_tokens', null)) {
         )
     );
 } else {
+
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($actions) {
         $actions[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=oauth2-connect')) . '">Connect this site to Blogify.ai</a>';
         return $actions;
@@ -156,11 +145,8 @@ add_action(
         wp_enqueue_style(
             'blogify-redirect',
             BLOGIFY_CSS_URL . 'redirect.css',
-            ['blogify-theme', 'blogify-buttons']
         );
     }
 );
 
-add_action("deactivate_" . plugin_basename(__FILE__), function () {
-    delete_option('blogify_oauth2_tokens');
-});
+add_action("deactivate_" . plugin_basename(__FILE__), fn() => delete_option('blogify_oauth2_tokens'));

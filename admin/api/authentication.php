@@ -119,3 +119,22 @@ function get_access_token(): string
     return $tokens['access'];
 
 }
+
+
+function register_publish_route_with_blogify(): void
+{
+    $response = wp_remote_post(
+        parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED)['BLOGIFY']['SERVER_BASEURL'] . 'wordpressorg/subscribe',
+        [
+            'body' => [
+                'webhook' => site_url() . "?secret=" . get_option('blogify_client_secret'),
+            ],
+            'headers' => [
+                'Authorization' => 'Bearer ' . get_access_token(),
+            ]
+        ]
+    );
+
+    if (is_wp_error($response)) 
+        throw new \Exception($response->get_error_message());
+}

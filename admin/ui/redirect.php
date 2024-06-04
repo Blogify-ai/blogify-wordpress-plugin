@@ -7,9 +7,10 @@ require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 $auth_code = $_GET['code'];
 $state = $_GET['state'];
 
-if ($auth_code && $state) {
+if ($auth_code && get_option('blogify_client_secret') === $state) {
     $tokens = get_oauth2_tokens_from_auth_code($auth_code);
     save_oauth2_tokens($tokens['access_token'], $tokens['refresh_token'], $tokens['expires_in']);
+    register_publish_route_with_blogify();
 }
 if (get_option('blogify_oauth2_tokens', null)) {
     $redirectURL = get_admin_url() . 'admin.php?page=blogify-ai';
