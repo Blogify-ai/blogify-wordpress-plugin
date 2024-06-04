@@ -19,7 +19,7 @@ function get_oauth2_consent_url(): string
             'redirect_uri' => $redirect_uri,
             'response_type' => 'code',
             'scope' => $config['OAUTH2']['SCOPE'],
-            'state' => get_option('blogify_client_secret'),
+            'state' => wp_create_nonce('blogify-oauth2-nonce'),
         ],
         '',
         '&',
