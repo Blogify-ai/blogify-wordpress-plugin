@@ -1,8 +1,11 @@
 <?php
 
+namespace PixelShadow\Blogify;
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
+
 
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/blog.php';

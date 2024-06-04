@@ -1,5 +1,7 @@
 <?php
 
+namespace PixelShadow\Blogify;
+
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
     exit;
@@ -10,7 +12,7 @@ if (!defined('ABSPATH')) {
  *
  * @return string Returns a Version 4 UUID.
  */
-function v4uuid(): string
+function blogify_v4uuid(): string
 {
     $a = str_pad(dechex(random_int(0x0000_0000, 0xffff_ffff)), '0', STR_PAD_LEFT);
     $b = str_pad(dechex(random_int(0x0000, 0xffff)), '0', STR_PAD_LEFT);
@@ -20,7 +22,7 @@ function v4uuid(): string
     return "$a-$b-$c-$d-$e";
 }
 
-add_option('blogify_client_secret', v4uuid());
+add_option('blogify_client_secret', blogify_v4uuid());
 
 // Needed for image sideloading
 require_once ABSPATH . 'wp-admin/includes/media.php';
@@ -31,8 +33,8 @@ add_action('rest_api_init', fn() =>
     register_rest_route('blogify/v1', '/create-post',
         [
             'methods' => ['POST'],
-            'permission_callback' => fn(WP_REST_Request $request) => $request->get_param('client_secret') === get_option('blogify_client_secret'),
-            'callback' => function ($request) {
+            'permission_callback' => fn(\WP_REST_Request $request) => $request->get_param('client_secret') === get_option('blogify_client_secret'),
+            'callback' => function (\WP_REST_Request $request) {
                 $post_id = wp_insert_post(
                     [
                         'post_title' => $request->get_param('title'),

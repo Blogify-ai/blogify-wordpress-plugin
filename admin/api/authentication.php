@@ -1,7 +1,7 @@
 <?php
 // بسم الله الرحمن الرحيم
 
-//namespace PixelShadow\Blogify\API;
+namespace PixelShadow\Blogify;
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly

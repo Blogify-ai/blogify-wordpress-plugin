@@ -1,10 +1,10 @@
 <?php
 // بسم الله الرحمن الرحيم
 
+namespace PixelShadow\Blogify;
+
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 
-
-//namespace PixelShadow\Blogify\API;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly

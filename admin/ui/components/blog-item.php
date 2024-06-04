@@ -1,4 +1,8 @@
 <?php
+
+namespace PixelShadow\Blogify;
+
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
