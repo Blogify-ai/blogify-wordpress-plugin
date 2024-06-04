@@ -12,6 +12,13 @@ require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 
 function get_user_details(): array
 {
+    $data = get_transient('blogify_user_details');
+
+    if ($data) {
+        return $data;
+    }
+
+    
     $baseUrl = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED)['BLOGIFY']['SERVER_BASEURL'];
     $response = wp_remote_get(
         "{$baseUrl}public-api/v1/me",
@@ -33,5 +40,6 @@ function get_user_details(): array
         throw new \Exception('Failed to decode response data');
     }
 
+    set_transient('blogify_user_details', $data, 60);
     return $data;
 }
