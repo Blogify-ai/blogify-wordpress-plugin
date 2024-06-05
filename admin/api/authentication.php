@@ -12,7 +12,7 @@ function get_oauth2_consent_url(): string
     $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
     $redirect_uri = get_admin_url() . "admin.php?page=oauth2-connect";
 
-    return $config['BLOGIFY']['CLIENT_BASEURL'] . 'dashboard/settings/oauth2-consent?'
+    return $config['BLOGIFY']['CLIENT_BASEURL'] . 'oauth2-consent?'
     . http_build_query(
         [
             'client_id' => $config['OAUTH2']['CLIENT_ID'],
