@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/blog.php';
 
-
-$blogs = get_blogs($_GET['page-number'] ?? 1, 20);
+$page_number = wp_verify_nonce( $_REQUEST['_wpnonce'], 'blogify-pagination') ? $_GET['page-number'] : 1;
+$blogs = get_blogs($page_number, 20);
 
 ?>
 
@@ -35,11 +35,14 @@ $blogs = get_blogs($_GET['page-number'] ?? 1, 20);
                 </section>
                 <section class="blogify-items">      
                 <?php require_once 'components/blog-item.php';
-                        echo implode('', 
+                        echo wp_kses(
+                            implode('', 
                             array_map(
                                 fn ($blog) => blogify_blog_item($blog['_id'], $blog['title'], $blog['image'], $blog['publishStatus'], $blog['wordCount'] ),
                                 $blogs['data'])
-                            );
+                            ),
+                            'post'
+                        );
                     ?>
                 </section>
             </article>
@@ -47,13 +50,16 @@ $blogs = get_blogs($_GET['page-number'] ?? 1, 20);
         <footer>
                 <?php require_once 'components/pagination.php'; 
                     $pagination_data = $blogs['pagination'];
-                    echo construct_pagination(
+                    echo wp_kses(
+                        construct_pagination(
                         $pagination_data['page'],
                         $pagination_data['totalResults'],
                         $pagination_data['limit'],
                         $pagination_data['totalPages'],
                         BLOGIFY_IMAGES_URL
-                    )
+                    ),
+                    'post'
+                );
                 ?>
                 
         </footer>

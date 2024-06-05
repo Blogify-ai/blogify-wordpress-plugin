@@ -33,7 +33,7 @@ function get_blogs(int $page_number, int $page_size, ?string $publish_status = n
     );
 
     if (is_wp_error($response)) {
-        throw new \Exception($response->get_error_message(), $response->get_error_code());
+        throw new \Exception(esc_textarea($response->get_error_message()));
     }
 
     $body = wp_remote_retrieve_body($response);

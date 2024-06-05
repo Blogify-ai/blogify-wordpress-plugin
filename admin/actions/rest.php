@@ -37,16 +37,16 @@ add_action('rest_api_init', fn() =>
             'callback' => function (\WP_REST_Request $request) {
                 $post_id = wp_insert_post(
                     [
-                        'post_title' => $request->get_param('title'),
-                        'post_content' => $request->get_param('content'),
-                        'post_status' => $request->get_param('status'),
-                        'tags_input' => $request->get_param('keywords'),
+                        'post_title' => sanitize_text_field($request->get_param('title')),
+                        'post_content' => sanitize_text_field($request->get_param('content')),
+                        'post_status' => sanitize_text_field($request->get_param('status')),
+                        'tags_input' => sanitize_text_field($request->get_param('keywords')),
                         'post_type' => 'post', // You can use other post types as well
-                        'post_excerpt' => $request->get_param('summary'),
+                        'post_excerpt' => sanitize_text_field($request->get_param('summary')),
                         'meta_input' => [
-                            'blogify_blog_id' => $request->get_param('blog_id'),
-                            'blogify_meta_tags' => $request->get_param('meta_tags'),
-                            'blogify_meta_description' => $request->get_param('meta_description'),
+                            'blogify_blog_id' => $request->sanitize_text_field(get_param('blog_id')),
+                            'blogify_meta_tags' => $request->sanitize_text_field(get_param('meta_tags')),
+                            'blogify_meta_description' => $request->sanitize_text_field(get_param('meta_description')),
                         ],
                     ]
                 );
@@ -56,7 +56,7 @@ add_action('rest_api_init', fn() =>
                 }
 
                 if ($request->get_param('image_url')) {
-                    $image = media_sideload_image($request->get_param('image_url'), $post_id, null, 'id');
+                    $image = media_sideload_image(esc_url($request->get_param('image_url')), $post_id, null, 'id');
                     set_post_thumbnail($post_id, $image);
                 }
 

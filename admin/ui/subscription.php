@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/me.php';
 
-$user_details = get_user_details();
+$user_details = blogify_get_user_details();
 
 ?>
 
@@ -18,8 +18,8 @@ $user_details = get_user_details();
     <?php require_once 'components/header.php';?>
         <main>
             <article class="blogify-status-card">
-                <span class="blogify-title" style="color: var(--blogify-primary-color);"><?php echo ucfirst($user_details['subscriptionStatus']) ?> Subscription</span>
-                <span class="blogify-value"><?php echo implode(' ', array_map(fn($text) => ucfirst(strtolower($text)), explode('_', $user_details['subscriptionPlan']))) ?></span>
+                <span class="blogify-title" style="color: var(--blogify-primary-color);"><?php echo esc_html(ucfirst($user_details['subscriptionStatus'])) ?> Subscription</span>
+                <span class="blogify-value"><?php echo esc_html(implode(' ', array_map(fn($text) => ucfirst(strtolower($text)), explode('_', $user_details['subscriptionPlan'])))) ?></span>
                 <span class="blogify-bottom-line">
                     <span class="blogify-left">
                         <span class="blogify-info"></span>

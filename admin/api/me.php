@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 
-function get_user_details(): array
+function blogify_get_user_details(): array
 {
     $data = get_transient('blogify_user_details');
 
@@ -30,7 +30,7 @@ function get_user_details(): array
     );
 
     if (is_wp_error($response)) {
-        throw new \Exception($response->get_error_message(),  $response->get_error_code);
+        throw new \Exception(esc_textarea($response->get_error_message()),  esc_textarea($response->get_error_code));
     }
 
     $body = wp_remote_retrieve_body($response);

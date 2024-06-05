@@ -22,7 +22,6 @@
  * Text Domain:       blogify-ai
  * License:           GPL v2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Update URI:        blogify-ai
  */
 
 namespace PixelShadow\Blogify;
@@ -113,41 +112,43 @@ add_action(
     'admin_enqueue_scripts', function () {
         wp_enqueue_style(
             'blogify-theme',
-            BLOGIFY_CSS_URL . 'theme.css'
+            BLOGIFY_CSS_URL . 'theme.css',
+            [], BLOGIFY_VERSION
         );
         wp_enqueue_style(
             'blogify-header',
             BLOGIFY_CSS_URL . 'header.css',
-            ['blogify-theme']
+            ['blogify-theme'], BLOGIFY_VERSION
         );
         wp_enqueue_style(
             'blogify-buttons',
             BLOGIFY_CSS_URL . 'button.css',
-            ['blogify-theme']
+            ['blogify-theme'], BLOGIFY_VERSION
         );
         wp_enqueue_style(
             'blogify-status-card',
             BLOGIFY_CSS_URL . 'status-card.css',
-            ['blogify-theme']
+            ['blogify-theme'], BLOGIFY_VERSION
         );
         wp_enqueue_style(
             'blogify-blog-list',
             BLOGIFY_CSS_URL . 'blog-list.css',
-            ['blogify-theme', 'blogify-buttons']
+            ['blogify-theme', 'blogify-buttons'], BLOGIFY_VERSION
         );
         wp_enqueue_style(
             'blogify-category-list',
             BLOGIFY_CSS_URL . 'category-list.css',
-            ['blogify-theme', 'blogify-buttons']
+            ['blogify-theme', 'blogify-buttons'], BLOGIFY_VERSION
         );
         wp_enqueue_style(
             'blogify-pagination',
             BLOGIFY_CSS_URL . 'pagination.css',
-            ['blogify-theme', 'blogify-buttons']
+            ['blogify-theme', 'blogify-buttons'], BLOGIFY_VERSION
         );
         wp_enqueue_style(
             'blogify-redirect',
             BLOGIFY_CSS_URL . 'redirect.css',
+            [], BLOGIFY_VERSION
         );
     }
 );

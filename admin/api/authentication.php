@@ -45,15 +45,15 @@ function get_oauth2_tokens_from_auth_code(string $auth_code): array
     );
 
     if (is_wp_error($response)) 
-        throw new \Exception($response->get_error_message());
+        throw new \Exception(esc_textarea($response->get_error_message()));
 
     if (2 !== intdiv(wp_remote_retrieve_response_code($response), 100))
         throw new \Exception(implode(' ',
             [
                 'Failed to get access token:',
-                'request failed with code ' . wp_remote_retrieve_response_code($response),
+                'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
                 '=>',
-                wp_remote_retrieve_body($response),
+                esc_textarea(wp_remote_retrieve_body($response)),
             ]
         ));
     
@@ -78,15 +78,15 @@ function get_oauth2_tokens_from_refresh_token(string $refresh_token): array
     );
 
     if (is_wp_error($response)) 
-        throw new \Exception($response->get_error_message());
+        throw new \Exception(esc_textarea($response->get_error_message()));
 
     if (2 !== intdiv(wp_remote_retrieve_response_code($response), 100))
         throw new \Exception(implode(' ',
         [
             'Failed to get access token:',
-            'request failed with code ' . wp_remote_retrieve_response_code($response),
+            'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
             '=>',
-            wp_remote_retrieve_body($response),
+            esc_textarea(wp_remote_retrieve_body($response)),
         ]
     ));
 
@@ -136,5 +136,5 @@ function register_publish_route_with_blogify(): void
     );
 
     if (is_wp_error($response)) 
-        throw new \Exception($response->get_error_message());
+        throw new \Exception(esc_textarea($response->get_error_message()));
 }

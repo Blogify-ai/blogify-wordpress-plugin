@@ -105,10 +105,11 @@ function blogify_page_info(int $total_blogs, int $current_page, int $page_size) 
 function construct_pagination(int $current_page, int $total_blogs, int $page_size, int $total_pages, string $image_base) {
     $page_navigation_bar = blogify_page_navigation_bar($total_pages, $current_page, $image_base);
     $page_info = blogify_page_info($total_blogs, $current_page, $page_size);
-    $form_action = admin_url( "admin.php");
-    $current_page = $_GET['page'];
+    $form_action = admin_url( "admin.php" );
+    $nonce_field = wp_nonce_field('blogify-pagination');
     return <<<END
         <form method="GET" action="{$form_action}">
+        $nonce_field
             <input type="hidden" name="page" value="{$_GET['page']}" />
                 <span class="blogify-pagination">    
                 $page_navigation_bar
