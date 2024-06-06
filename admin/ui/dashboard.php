@@ -9,11 +9,12 @@ if (!defined('ABSPATH')) {
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/blog.php';
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 
+$counts = get_publish_status_count();
 $blogs = get_blogs(1, 5);
 $totalBlogCount = $blogs['pagination']['totalResults'];
-$draftBlogCount = get_blogs(1, 1, 'draft')['pagination']['totalResults'];
-$publishedBlogCount = get_blogs(1, 1, 'published')['pagination']['totalResults'];
-$scheduledBlogCount = get_blogs(1, 1, 'scheduled')['pagination']['totalResults'];
+$draftBlogCount = $counts['draft'];
+$publishedBlogCount = $counts['published'];
+$scheduledBlogCount = $counts['scheduled'];
 
 ?>
 

@@ -53,7 +53,7 @@ function get_oauth2_tokens_from_auth_code(string $auth_code): array
                 'Failed to get access token:',
                 'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
                 '=>',
-                esc_textarea(wp_remote_retrieve_body($response)),
+                esc_textarea(print_r(json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR),true)),
             ]
         ));
     
@@ -85,9 +85,9 @@ function get_oauth2_tokens_from_refresh_token(string $refresh_token): array
         [
             'Failed to get access token:',
             'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
-            '=>',
-            esc_textarea(wp_remote_retrieve_body($response)),
-        ]
+            'because of',
+            esc_textarea(print_r(json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR),true)),
+            ]
     ));
 
     return json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR);
