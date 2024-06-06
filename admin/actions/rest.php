@@ -29,42 +29,80 @@ require_once ABSPATH . 'wp-admin/includes/media.php';
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/image.php';
 
-add_action('rest_api_init', fn() =>
-    register_rest_route('blogify/v1', '/create-post',
-        [
-            'methods' => ['POST'],
-            'permission_callback' => fn(\WP_REST_Request $request) => $request->get_param('client_secret') === get_option('blogify_client_secret'),
-            'callback' => function (\WP_REST_Request $request) {
-                $post_id = wp_insert_post(
-                    [
-                        'post_title' => sanitize_text_field($request->get_param('title')),
-                        'post_content' => sanitize_text_field($request->get_param('content')),
-                        'post_status' => sanitize_text_field($request->get_param('status')),
-                        'tags_input' => sanitize_text_field($request->get_param('keywords')),
-                        'post_type' => 'post', // You can use other post types as well
-                        'post_excerpt' => sanitize_text_field($request->get_param('summary')),
-                        'meta_input' => [
-                            'blogify_blog_id' => $request->sanitize_text_field(get_param('blog_id')),
-                            'blogify_meta_tags' => $request->sanitize_text_field(get_param('meta_tags')),
-                            'blogify_meta_description' => $request->sanitize_text_field(get_param('meta_description')),
-                        ],
-                    ]
-                );
+add_action('rest_api_init', fn () => 
+    register_rest_route('blogify/v1', '/create-post', [
+        'methods' => ['POST'],
+        'permission_callback' => fn(\WP_REST_Request $request) => $request->get_param('client_secret') === get_option('blogify_client_secret'),
+        'callback' => function (\WP_REST_Request $request) {
 
-                if (is_wp_error($post_id)) {
-                    return new WP_Error('error', 'Failed to create post' . $post_id->get_error_message(), array('status' => 500));
+            $required = function($field) use ($request) {
+                $value = $request->get_param($field);
+                if (empty($value)) {
+                    return new \WP_Error('error', "$field is required", ['status' => 400]);
                 }
+                return $value;
+            };
 
-                if ($request->get_param('image_url')) {
-                    $image = media_sideload_image(esc_url($request->get_param('image_url')), $post_id, null, 'id');
-                    set_post_thumbnail($post_id, $image);
+            $status_validation = function() use ($request) {
+                $status = $request->get_param('status');
+                if ($status && !in_array($status, array_keys(get_post_statuses()), true)) {
+                    return new \WP_Error('error', 'status must be one of ' . implode(', ', array_keys(get_post_statuses())), ['status' => 400]);
                 }
+                return $status;
+            };
+            
+            $sanitize_text_array = fn(?array $array) => is_array($array) ? array_map('sanitize_text_field', $array) : [];
 
-                return ['message' => 'Post created successfully', 'blog_link' => get_permalink($post_id)];
-            },
-        ]
-    )
+
+            $title = $required('title');
+            if (is_wp_error($title)) {
+                return $title;
+            }
+
+            $content = $required('content');
+            if (is_wp_error($content)) {
+                return $content;
+            }
+
+            $blog_id = $required('blog_id');
+            if (is_wp_error($blog_id)) {
+                return $blog_id;
+            }
+
+            $status = $status_validation();
+            if (is_wp_error($status)) {
+                return $status;
+            }
+
+            $post_id = wp_insert_post([
+                'post_title' => sanitize_text_field($title),
+                'post_content' => wp_kses_post($content),
+                'post_status' => $status,
+                'tags_input' => $sanitize_text_array($request->get_param('keywords')),
+                'post_type' => 'post',
+                'post_excerpt' => sanitize_text_field($request->get_param('summary')),
+                'meta_input' => [
+                    'blogify_blog_id' => sanitize_text_field($blog_id),
+                    'blogify_meta_tags' => $sanitize_text_array($request->get_param('meta_tags')),
+                    'blogify_meta_description' => sanitize_text_field($request->get_param('meta_description')),
+                ],
+            ]);
+
+            if (is_wp_error($post_id)) {
+                return new WP_Error('error', 'Failed to create post: ' . $post_id->get_error_message(), ['status' => 500]);
+            }
+
+            if ($request->get_param('image_url')) {
+                $image = media_sideload_image(sanitize_url($request->get_param('image_url')), $post_id, null, 'id');
+                set_post_thumbnail($post_id, $image);
+            }
+
+            return ['message' => 'Post created successfully', 'blog_link' => get_permalink($post_id)];
+        },
+    ])
 );
+
+
 
 add_action('wp_head', function () {
     global $post;
