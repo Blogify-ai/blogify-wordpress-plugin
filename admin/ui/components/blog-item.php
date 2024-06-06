@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function blogify_blog_item(string $id, string $title, ?string $cover_image, string $publish_status, ?int $word_count, string $category = null) { 
     $blog_image = $cover_image?: BLOGIFY_IMAGES_URL . "logos/blogify-logo-black.png";
+    $blog_title = $title ?: 'Failed Blog';
     $blog_stats = implode( " · ", array_filter(
                                                 [
                                                     ucfirst(strtolower($publish_status)),
@@ -26,7 +27,7 @@ function blogify_blog_item(string $id, string $title, ?string $cover_image, stri
                 <img class="blogify-blog-cover" alt="Blog Cover"
                     src=$blog_image />
                 <span class="blogify-blog-info">
-                    <span class="blogify-blog-title">$title</span>
+                    <span class="blogify-blog-title">$blog_title</span>
                     <span class="blogify-blog-stats">$blog_stats</span>
                 </span>
             </span>

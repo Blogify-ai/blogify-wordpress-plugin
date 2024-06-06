@@ -90,27 +90,27 @@ function blogify_page_navigation_bar(int $number_of_pages, int $current_page, st
     END;
 }
 
-function blogify_page_info(int $total_blogs, int $current_page, int $page_size) {
+function blogify_page_info(int $total_blogs, int $current_page, int $page_size, int $total_pages) {
     $starting_blog = ($current_page - 1) * $page_size + 1;
-    $ending_blog = $starting_blog + $page_size - 1;
+    $ending_blog = $current_page === $total_pages ? $total_blogs :  $starting_blog + $page_size - 1;
         
     return <<<END
-                <span class="blogify-page-info"">
+                <span class="blogify-page-info">
                     <span class="blogify-page-stats">
                         Showing Results {$starting_blog} - {$ending_blog} of $total_blogs
                     </span>
                 END;
 }
 
-function construct_pagination(int $current_page, int $total_blogs, int $page_size, int $total_pages, string $image_base) {
+function construct_pagination(int $current_page, int $total_blogs, int $page_size, int $total_pages, string $image_base, string $nonce) {
     $page_navigation_bar = blogify_page_navigation_bar($total_pages, $current_page, $image_base);
-    $page_info = blogify_page_info($total_blogs, $current_page, $page_size);
+    $page_info = blogify_page_info($total_blogs, $current_page, $page_size, $total_pages);
     $form_action = admin_url( "admin.php" );
-    $nonce_field = wp_nonce_field('blogify-pagination');
     return <<<END
         <form method="GET" action="{$form_action}">
-        $nonce_field
             <input type="hidden" name="page" value="{$_GET['page']}" />
+            <input type="hidden" name="blogify-pagination-nonce" value="{$nonce}" />
+
                 <span class="blogify-pagination">    
                 $page_navigation_bar
                 $page_info

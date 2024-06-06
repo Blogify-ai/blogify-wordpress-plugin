@@ -1,7 +1,8 @@
 <?php
 // بسم الله الرحمن الرحيم
 /**
- * Blogify AI
+ * 
+ * 
  *
  * @package           Blogify-AI
  * @author            Fida Waseque Choudhury
@@ -11,7 +12,7 @@
  * @wordpress-plugin
  * Plugin Name:       Blogify-AI
  * Plugin URI:        https://blogify.ai/
- * Description:       Create AI-generated blogs via Blogify.ai.
+ * Description:       Seamlessly publish AI-generated blog posts from Blogify.ai to your WordPress site with ease, enhancing content management and SEO optimization in a few clicks.
  * Version:           1.0.0
  * Requires at least: 6.0
  * Requires PHP:      7.4

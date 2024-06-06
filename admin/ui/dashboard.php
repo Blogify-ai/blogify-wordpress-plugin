@@ -24,7 +24,7 @@ $scheduledBlogCount = get_blogs(1, 1, 'scheduled')['pagination']['totalResults']
         <article class="blogify-status-bar">
         <?php
             require_once 'components/status-card.php';
-            echo wp_kses(implode('',
+            echo wp_kses(implode("\n",
                 [
                     blogify_status_card('Draft', $draftBlogCount, "") ,
                     blogify_status_card('Scheduled', $scheduledBlogCount, ""),
@@ -51,14 +51,17 @@ $scheduledBlogCount = get_blogs(1, 1, 'scheduled')['pagination']['totalResults']
                 </section>
                 <section class="blogify-items">
                     <?php require_once 'components/blog-item.php';
-                        echo wp_kses(
-                            implode('',
-                            array_map(
-                                fn($blog) => blogify_blog_item($blog['_id'], $blog['title'], $blog['image'], $blog['publishStatus'], $blog['wordCount']),
-                                $blogs['data'])
-                        ),
-                        'post'
-                    );
+                        if ($blogs['pagination']['totalResults']) {
+                            echo wp_kses(
+                                implode("\n",
+                                array_map(
+                                    fn($blog) => blogify_blog_item($blog['_id'], $blog['title'], $blog['image'], $blog['publishStatus'], $blog['wordCount']),
+                                    $blogs['data'])
+                            ),
+                            'post');
+                        } else {
+                        echo '<p style="text-align: center; width: 100%;">No Blogs Found</p>';
+                    }
                     ?>
                 </section>
             </article>

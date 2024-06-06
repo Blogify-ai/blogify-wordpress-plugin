@@ -1,95 +1,88 @@
-=== Plugin Name ===
-Contributors: (this should be a list of wordpress.org userid's)
-Donate link: https://example.com/
-Tags: tag1, tag2
-Requires at least: 4.7
-Tested up to: 5.4
-Stable tag: 4.3
-Requires PHP: 7.0
+=== Blogify-AI ===
+Contributors: u3kkasha
+Tags: AI Blogging, Automated Post Creation, Video to Blog, Audio to Blog, Blogging Tools
+Requires at least: 6.0
+Tested up to: 6.5
+Stable tag: 1.0.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Here is a short description of the plugin.  This should be no more than 150 characters.  No markup here.
+Seamlessly publish AI-generated blog posts from Blogify.ai to your WordPress site with ease, enhancing content management and SEO optimization in a few clicks.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+# Introducing the **Blogify.ai Plugin**!
+Seamlessly publish your AI-generated blog posts directly from [Blogify.ai](https://blogify.ai) to your WordPress site. This plugin enables effortless integration, allowing users to automate content transfer with just a few clicks. 
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+Enhance your website with high-quality, SEO-optimized **blog posts generated from videos, audio, and text**, all while maintaining complete control over formatting and scheduling. Simplify your content management workflow and keep your audience engaged with fresh, diverse content without the hassle of manual uploads. Elevate your blogging experience with the Blogify.ai Plugin today!
 
-A few notes about the sections above:
+## Key Features
 
-* "Contributors" is a comma separated list of wordpress.org usernames
-* "Tags" is a comma separated list of tags that apply to the plugin
-* "Requires at least" is the lowest version that the plugin will work on
-* "Tested up to" is the highest version that you've *successfully used to test the plugin*
-* Stable tag must indicate the Subversion "tag" of the latest stable version
+- **Effortless Integration**: Seamlessly connect Blogify.ai with your WordPress site.
+- **Automated Content Transfer**: Publish AI-generated posts with just a few clicks.
+- **Versatile Content Creation**: Generate blog posts from videos, audio, and text.
+- **SEO Optimization**: Ensure your posts are optimized for search engines.
+- **Complete Control**: Manage formatting and scheduling for all your content.
+- **Multiple Site Support**: Connect and manage multiple WordPress sites from a single Blogify.ai account.
 
-Note that the `readme.txt` value of stable tag is the one that is the defining one for the plugin.  If the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used for displaying information about the plugin.
+== Screenshots ==
+1. Click on the action link *Connect this site to Blogify.ai*. (alternatively you can also click on the new menu bar item called *Blogify-AI 📝*)
+2. A redirect page will appear and you will be redirected to the Blogify.ai website.
+3. You will be redirected back to the plugin's dashboard in your WordPress site's Admin Panel.
 
-If you develop in trunk, you can update the trunk `readme.txt` to reflect changes in your in-development version, without having that information incorrectly disclosed about the current stable version that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
+== Installation ==
+(You can also check the screenshots for visual reference)
 
-If no stable tag is provided, your users may not get the correct version of your code.
+1. Install the Blogify-AI Plugin and activate it.
+2. Click on the action link *Connect this site to Blogify.ai*. (alternatively you can also click on the new menu bar item called *Blogify-AI 📝*)
+3. A redirect page will appear and you will be redirected to the Blogify.ai website.
+4. Grant access to the plugin to access data from your Blogify Account (OAuth2 Authentication).
+5. You will be redirected back to the plugin's dashboard in your WordPress site's Admin Panel.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+### What is Blogify.ai?
 
-An answer to that question.
+Blogify.ai is an AI-powered platform that transforms videos, audio, and text into high-quality, SEO-optimized blog posts. It leverages advanced natural language processing to generate engaging content tailored to your audience.
 
-= What about foo bar? =
+### What is the plugin for?
 
-Answer to foo bar dilemma.
+The Blogify.ai WordPress Plugin enables users to automatically publish AI-generated blog posts from Blogify.ai directly to their WordPress site. It simplifies the content management process by automating the transfer and publishing of posts.
 
-== Screenshots ==
+### How do I use it for my website?
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Screenshots are stored in the /assets directory.
-2. This is the second screen shot
+1. Install the Blogify.ai WordPress Plugin.
+2. Connect your Blogify.ai account with your WordPress site using the plugin settings. (see Installation section for details)
+3. Generate content on Blogify.ai from videos, audio, or text.
+4. Select the content you wish to publish, format it as desired, and schedule or publish it directly from the Blogify.ai interface.
+
+### Can I try out the plugin for free?
+
+Anyone can install the Blogify.ai WordPress Plugin for free. However, to publish blogs to your WordPress site you requre a Blogify Account.
+Blogify.ai offers both **free trial and paid plans**. The lower tier plans includes basic features, while higher tier plans provide advanced functionalities, higher content generation limits, and additional customization options.
+Check [Blogify.ai](https://blogify.ai) for detailed pricing information.
+
+### How can I connect multiple sites to Blogify.ai?
+
+To connect multiple WordPress sites to Blogify.ai, follow these steps:
+1. Install the Blogify.ai WordPress Plugin on each site you want to connect.
+2. Connect each WordPress site to your Blogify.ai account (see Installation section for details).
+3. Manage and publish content to multiple sites directly from the Blogify.ai dashboard.
+
+### Can I customize the format of my blog posts?
+
+Yes, the Blogify.ai WordPress Plugin allows you to customize the format of your blog posts before publishing. You can adjust headings, images, links, and other elements to ensure consistency with your website's style and branding.
+
+### What types of content can Blogify.ai generate?
+
+Blogify.ai can generate blog posts from various types of content, including videos, audio recordings, and text documents. This versatility allows you to create diverse and engaging content for your audience.
+
+### Is technical support available?
+
+Yes, technical support is available for all Blogify.ai users round the clock. You can reach out to our support team via the Blogify.ai website for assistance with the plugin or any other related issues. You can also contact via the support forum on WordPress for this plugin.
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
-
-== Upgrade Notice ==
-
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
-
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
-
-== A brief Markdown Example ==
-
-Markdown is what the parser uses to process much of the readme file.
-
-[markdown syntax]: https://daringfireball.net/projects/markdown/syntax
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Links require brackets and parenthesis:
-
-Here's a link to [WordPress](https://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax]. Link titles are optional, naturally.
-
-Blockquotes are email style:
-
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-And Backticks for code:
-
-`<?php code(); ?>`
+= 1.0.0 =
+* Initial release
