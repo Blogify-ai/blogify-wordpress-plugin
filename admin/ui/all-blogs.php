@@ -72,12 +72,11 @@ $blogs = get_blogs($page_number, 20);
                                 'type' => array('hidden'),
                                 'name' => array('page', 'blogify-pagination-nonce'),
                                 'value' => array('blogify-all-blogs', $nonce ),
-                                'id' => array('blogify-pagination-nonce'),  // Values from the two `<input>` tags' `id` attributes (first one has none)
+                                'id' => array('blogify-pagination-nonce'),
                             ],
                         ]
                     ));
                 ?>
-
         </footer>
     </div>
 </div>

@@ -5,6 +5,7 @@ namespace PixelShadow\Blogify;
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
+# Displays the header bar bar used on every page of the plugin except redirect page
 
 require_once(BLOGIFY_PLUGIN_DIR . 'admin/api/me.php');
 $user_details = blogify_get_user_details();

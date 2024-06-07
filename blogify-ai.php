@@ -1,9 +1,8 @@
 <?php
 // بسم الله الرحمن الرحيم
 /**
+ * Blogify-AI
  * 
- * 
- *
  * @package           Blogify-AI
  * @author            Fida Waseque Choudhury
  * @copyright         PixelShadow
@@ -26,7 +25,6 @@
  */
 
 namespace PixelShadow\Blogify;
-
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
@@ -52,7 +50,7 @@ require_once BLOGIFY_PLUGIN_DIR . 'admin/actions/rest.php';
 
 
 
-if (get_option('blogify_oauth2_tokens', null)) {
+if (get_option('blogify_oauth2_tokens', null))/* This branch executes when the user has already connected this site to Blogify.ai */ {
 
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($actions) {
         $actions[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=blogify-ai')) . '">Dashboard</a>';
@@ -93,7 +91,7 @@ if (get_option('blogify_oauth2_tokens', null)) {
             fn() => require_once BLOGIFY_UI_PAGES_DIR . 'subscription.php',
         )
     );
-} else {
+} else /* This branch executes when the user has not yet connected this site with his Blogify.ai account */ {
 
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($actions) {
         $actions[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=oauth2-connect')) . '">Connect this site to Blogify.ai</a>';
@@ -158,4 +156,5 @@ add_action(
     }
 );
 
+// This is intentional to allow users to reset their connection with their Blogify.ai account and start over again without having to delete the plugin.
 add_action("deactivate_" . plugin_basename(__FILE__), fn() => delete_option('blogify_oauth2_tokens'));

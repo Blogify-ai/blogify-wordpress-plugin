@@ -117,8 +117,6 @@ function construct_pagination(int $current_page, int $total_blogs, int $page_siz
         </span>
         </form>
     END;
-
-
 }
 
 ?>

@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
  *
  * @return string Returns a Version 4 UUID.
  */
-function blogify_v4uuid(): string
+function v4uuid(): string
 {
     $a = str_pad(dechex(random_int(0x0000_0000, 0xffff_ffff)), '0', STR_PAD_LEFT);
     $b = str_pad(dechex(random_int(0x0000, 0xffff)), '0', STR_PAD_LEFT);
@@ -22,7 +22,7 @@ function blogify_v4uuid(): string
     return "$a-$b-$c-$d-$e";
 }
 
-add_option('blogify_client_secret', blogify_v4uuid());
+add_option('blogify_client_secret', v4uuid());
 
 // Needed for image sideloading
 require_once ABSPATH . 'wp-admin/includes/media.php';
