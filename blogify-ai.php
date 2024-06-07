@@ -35,17 +35,21 @@ if (!defined('ABSPATH')) {
 // Constants
 DEFINE('BLOGIFY_VERSION', '1.0.0');
 
+DEFINE('BLOGIFY_PLUGIN_DIR', plugin_dir_path(__FILE__));
+DEFINE('BLOGIFY_UI_PAGES_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/');
+DEFINE('BLOGIFY_UI_COMPONENTS_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/components');
+
+DEFINE('BLOGIFY_INI_PATH', BLOGIFY_PLUGIN_DIR . 'blogify-ai.ini');
+DEFINE('BLOGIFY_SERVER_BASEURL', parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED)['BLOGIFY']['SERVER']);
+
 DEFINE('BLOGIFY_ASSETS_URL', plugins_url('/admin/assets/', __FILE__));
 DEFINE('BLOGIFY_IMAGES_URL', BLOGIFY_ASSETS_URL . 'images/');
 DEFINE('BLOGIFY_CSS_URL', BLOGIFY_ASSETS_URL . 'css/');
 DEFINE('BLOGIFY_JS_URL', BLOGIFY_ASSETS_URL . 'js/');
 
-DEFINE('BLOGIFY_PLUGIN_DIR', plugin_dir_path(__FILE__));
-DEFINE('BLOGIFY_UI_PAGES_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/');
-DEFINE('BLOGIFY_UI_COMPONENTS_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/components');
-DEFINE('BLOGIFY_INI_PATH', BLOGIFY_PLUGIN_DIR . 'blogify-ai.ini');
 
 require_once BLOGIFY_PLUGIN_DIR . 'admin/actions/rest.php';
+
 
 
 if (get_option('blogify_oauth2_tokens', null)) {

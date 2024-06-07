@@ -12,7 +12,7 @@ function get_oauth2_consent_url(): string
     $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
     $redirect_uri = get_admin_url() . "admin.php?page=oauth2-connect";
 
-    return $config['BLOGIFY']['CLIENT_BASEURL'] . 'oauth2-consent?'
+    return $config['BLOGIFY']['CLIENT'] . 'oauth2-consent?'
     . http_build_query(
         [
             'client_id' => $config['OAUTH2']['CLIENT_ID'],
@@ -29,10 +29,10 @@ function get_oauth2_consent_url(): string
 
 function get_oauth2_tokens_from_auth_code(string $auth_code): array
 {
-    $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
     $redirect_uri = get_admin_url() . "admin.php?page=oauth2-connect";
+    $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
 
-    $response = wp_remote_post($config['BLOGIFY']['SERVER_BASEURL'] . 'oauth2/v1/token',
+    $response = wp_remote_post(BLOGIFY_SERVER_BASEURL . 'oauth2/v1/token',
         [
             'body' => [
                 "grant_type" => "authorization_code",
@@ -75,9 +75,8 @@ function get_oauth2_tokens_from_auth_code(string $auth_code): array
 
 function get_oauth2_tokens_from_refresh_token(string $refresh_token): array
 {
-    $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
 
-    $response = wp_remote_post($config['BLOGIFY']['SERVER_BASEURL'] . 'oauth2/v1/refresh',
+    $response = wp_remote_post(BLOGIFY_SERVER_BASEURL . 'oauth2/v1/refresh',
         [
             'body' => [
                 "grant_type" => "refresh_token",
@@ -146,7 +145,7 @@ function get_access_token(): string
 function register_publish_route_with_blogify(): void
 {
     $response = wp_remote_post(
-        parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED)['BLOGIFY']['SERVER_BASEURL'] . 'wordpressorg/subscribe',
+        BLOGIFY_SERVER_BASEURL . 'wordpressorg/subscribe',
         [
             'body' => [
                 'webhook' => site_url() . "?secret=" . get_option('blogify_client_secret'),

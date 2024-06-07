@@ -17,11 +17,9 @@ function blogify_get_user_details(): array
     if ($data) {
         return $data;
     }
-
     
-    $baseUrl = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED)['BLOGIFY']['SERVER_BASEURL'];
     $response = wp_remote_get(
-        "{$baseUrl}public-api/v1/me",
+        BLOGIFY_SERVER_BASEURL . "public-api/v1/me",
         [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', get_access_token())
