@@ -41,22 +41,33 @@ function get_oauth2_tokens_from_auth_code(string $auth_code): array
                 "redirect_uri" => $redirect_uri,
                 "code" => $auth_code,
             ],
+            'timeout' => 10,
         ]
     );
 
-    if (is_wp_error($response)) 
+    if (is_wp_error($response)) {
         throw new \Exception(esc_textarea($response->get_error_message()));
+    }
 
-    if (2 !== intdiv(wp_remote_retrieve_response_code($response), 100))
-        throw new \Exception(implode(' ',
-            [
-                'Failed to get access token:',
-                'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
-                '=>',
-                esc_textarea(print_r(json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR),true)),
-            ]
-        ));
-    
+    if (2 !== intdiv(wp_remote_retrieve_response_code($response), 100)) {
+        throw new \Exception(
+            implode(' ',
+                [
+                    'Failed to get access token:',
+                    'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
+                    'because of:',
+                    esc_textarea(
+                        print_r(
+                            json_decode(
+                                wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR
+                            ),
+                            true
+                        )
+                    ),
+                ]
+            )
+        );
+    }
 
     return json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR);
 
@@ -65,7 +76,7 @@ function get_oauth2_tokens_from_auth_code(string $auth_code): array
 function get_oauth2_tokens_from_refresh_token(string $refresh_token): array
 {
     $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
-    
+
     $response = wp_remote_post($config['BLOGIFY']['SERVER_BASEURL'] . 'oauth2/v1/refresh',
         [
             'body' => [
@@ -74,21 +85,33 @@ function get_oauth2_tokens_from_refresh_token(string $refresh_token): array
                 "client_secret" => $config['OAUTH2']['CLIENT_SECRET'],
                 "refresh_token" => $refresh_token,
             ],
+            'timeout' => 10,
         ]
     );
 
-    if (is_wp_error($response)) 
+    if (is_wp_error($response)) {
         throw new \Exception(esc_textarea($response->get_error_message()));
+    }
 
-    if (2 !== intdiv(wp_remote_retrieve_response_code($response), 100))
-        throw new \Exception(implode(' ',
-        [
-            'Failed to get access token:',
-            'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
-            'because of',
-            esc_textarea(print_r(json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR),true)),
-            ]
-    ));
+    if (2 !== intdiv(wp_remote_retrieve_response_code($response), 100)) {
+        throw new \Exception(
+            implode(' ',
+                [
+                    'Failed to get access token:',
+                    'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
+                    'because of:',
+                    esc_textarea(
+                        print_r(
+                            json_decode(
+                                wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR
+                            ),
+                            true
+                        )
+                    ),
+                ]
+            )
+        );
+    }
 
     return json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR);
 }
@@ -102,24 +125,23 @@ function save_oauth2_tokens(string $access_token, string $refresh_token, int $ex
     ], false);
 }
 
-
 function get_access_token(): string
 {
     $tokens = get_option('blogify_oauth2_tokens', null);
 
-    if( !$tokens) 
+    if (!$tokens) {
         throw new \Exception('No blogify oauth2 tokens found: option is does not exist');
-    
-    if( time() >= $tokens['expires_at']) {
+    }
+
+    if (time() >= $tokens['expires_at']) {
         $new_tokens = get_oauth2_tokens_from_refresh_token($tokens['refresh']);
         save_oauth2_tokens($new_tokens['access_token'], $new_tokens['refresh_token'], $new_tokens['expires_in']);
         return $new_tokens['access_token'];
     }
-    
+
     return $tokens['access'];
 
 }
-
 
 function register_publish_route_with_blogify(): void
 {
@@ -131,10 +153,13 @@ function register_publish_route_with_blogify(): void
             ],
             'headers' => [
                 'Authorization' => 'Bearer ' . get_access_token(),
-            ]
+            ],
+            'timeout' => 10,
         ]
     );
 
-    if (is_wp_error($response)) 
+    if (is_wp_error($response)) {
         throw new \Exception(esc_textarea($response->get_error_message()));
+    }
+
 }

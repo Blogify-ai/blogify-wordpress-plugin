@@ -25,7 +25,8 @@ function blogify_get_user_details(): array
         [
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', get_access_token())
-            ]
+            ],
+            'timeout' => 10,
         ]
     );
 

@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function get_blogs(int $page_number, int $page_size, ?string $publish_status = null): array
 {
-       
     $baseUrl = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED)['BLOGIFY']['SERVER_BASEURL'];
     $response = wp_remote_get(
         "{$baseUrl}public-api/v1/blogs?" . http_build_query([
@@ -24,6 +23,7 @@ function get_blogs(int $page_number, int $page_size, ?string $publish_status = n
             'headers' => [
                 'Authorization' => sprintf('Bearer %s', get_access_token()),
             ],
+            'timeout' => 10,
         ]
     );
 
@@ -52,6 +52,7 @@ function get_publish_status_count(): array
         'type' => \Requests::GET,
         'url' => "{$baseUrl}public-api/v1/blogs?publish-status=$status",
         'headers' => ['Authorization' => sprintf('Bearer %s', get_access_token())],
+        'timeout' => 10,
     ],
     array_combine($statuses, $statuses)));
 
