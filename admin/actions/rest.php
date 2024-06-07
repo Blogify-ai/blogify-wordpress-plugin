@@ -112,14 +112,14 @@ add_action('wp_head', function () {
 
         if (!empty($meta_description)) {
             printf(
-                '<meta name="description" content="%s" />\\n',
+                '<meta name="description" content="%s" />' . "\n",
                 esc_attr(trim($meta_description))
             );
         }
 
         if (!empty($meta_tags)) {
             printf(
-                '<meta name="keywords" content="%s" />\\n',
+                '<meta name="keywords" content="%s" />' . "\n",
                 esc_attr(trim(implode(',', $meta_tags)))
             );
         }
