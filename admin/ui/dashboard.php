@@ -56,7 +56,7 @@ $scheduledBlogCount = $counts['scheduled'];
                             echo wp_kses(
                                 implode("\n",
                                 array_map(
-                                    fn($blog) => blogify_blog_item($blog['_id'], $blog['title'], $blog['image'], $blog['publishStatus'], $blog['wordCount']),
+                                    fn($blog) => blogify_blog_item($blog['_id'], $blog['title'], $blog['image'], $blog['publishStatus'], $blog['wordCount'] ?? null),
                                     $blogs['data'])
                             ),
                             'post');

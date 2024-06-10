@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 }
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 
-if (wp_verify_nonce($_GET['state'], 'blogify-oauth2-nonce') && $_GET['code']) {
+if (wp_verify_nonce($_GET['state'] ?? null, 'blogify-oauth2-nonce') && $_GET['code']) {
     $auth_code = $_GET['code'];
     $tokens = get_oauth2_tokens_from_auth_code($auth_code);
     save_oauth2_tokens($tokens['access_token'], $tokens['refresh_token'], $tokens['expires_in']);

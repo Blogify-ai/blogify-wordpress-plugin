@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/blog.php';
 
-$page_number = wp_verify_nonce($_GET['blogify-pagination-nonce'], 'blogify-pagination') ? $_GET['page-number'] : 1;
+$page_number = wp_verify_nonce($_GET['blogify-pagination-nonce'] ?? null, 'blogify-pagination') ? $_GET['page-number'] : 1;
 $blogs = get_blogs($page_number, 20);
 
 ?>
@@ -37,7 +37,7 @@ $blogs = get_blogs($page_number, 20);
                     if ($blogs['data']) {
                         echo wp_kses(
                             implode("\n", array_map(
-                                fn($blog) => blogify_blog_item($blog['_id'], $blog['title'], $blog['image'], $blog['publishStatus'], $blog['wordCount']),
+                                fn($blog) => blogify_blog_item($blog['_id'], $blog['title'], $blog['image'], $blog['publishStatus'], $blog['wordCount'] ?? null),
                                 $blogs['data'])),
                             'post'
                         );
