@@ -80,9 +80,24 @@ Blogify.ai can generate blog posts from various types of content, including vide
 
 ### Is technical support available?
 
-Yes, technical support is available for all Blogify.ai users round the clock. You can reach out to our support team via the Blogify.ai website for assistance with the plugin or any other related issues. You can also contact via the support forum on WordPress for this plugin.
+Yes, technical support is available for all Blogify.ai users round the clock. Available channels:
+
+* This plugins WordPress Support Forum
+* Messaging customer support on [Blogify.ai](https://blogify.ai) via the chatbox
+* Email: info@blogify[dot]ai
+
+
+== Troubleshooting ==
+
+### I am facing errors or issues with the plugin.
+
+Deactivate the plugin then reactivate and connect again to your Blogify account and then try again. If the issue still persists you can con contact us and we'll help you resolve the problem.
 
 == Changelog ==
 
 = 1.0.0 =
-* Initial release
+
+* Added a REST API for publishing blogs from Blogify.ai.
+* Added the plugin's Dashboard Page
+* Added the plugin's Subscription Page
+* Added the plugin's All Blogs Page (with pagination support)
