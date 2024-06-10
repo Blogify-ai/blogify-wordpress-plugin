@@ -16,7 +16,6 @@
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            PixelShadow
- * Author URI:        https://blogify.ai/
  * Developer:         Fida Waseque Choudhury
  * Developer URI:     https://www.linkedin.com/in/u3kkasha/
  * Text Domain:       blogify-ai
