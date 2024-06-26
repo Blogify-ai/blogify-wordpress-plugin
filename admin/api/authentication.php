@@ -76,6 +76,7 @@ function get_oauth2_tokens_from_auth_code(string $auth_code): array
 function get_oauth2_tokens_from_refresh_token(string $refresh_token): array
 {
 
+    $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
     $response = wp_remote_post(BLOGIFY_SERVER_BASEURL . 'oauth2/v1/refresh',
         [
             'body' => [
