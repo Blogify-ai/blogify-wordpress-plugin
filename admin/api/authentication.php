@@ -7,143 +7,39 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-function get_oauth2_consent_url(): string
+function validate_token(string $token): bool
 {
-    $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
-    $redirect_uri = get_admin_url() . "admin.php?page=oauth2-connect";
-
-    return $config['BLOGIFY']['CLIENT'] . 'oauth2-consent?'
-    . http_build_query(
-        [
-            'client_id' => $config['OAUTH2']['CLIENT_ID'],
-            'redirect_uri' => $redirect_uri,
-            'response_type' => 'code',
-            'scope' => $config['OAUTH2']['SCOPE'],
-            'state' => wp_create_nonce('blogify-oauth2-nonce'),
+     $response = wp_remote_get(BLOGIFY_SERVER_BASEURL . 'wordpressorg/token/validate', [
+        'headers' => [
+            'Authorization' => 'Bearer ' . $token,
         ],
-        '',
-        '&',
-        PHP_QUERY_RFC3986
-    );
-}
-
-function get_oauth2_tokens_from_auth_code(string $auth_code): array
-{
-    $redirect_uri = get_admin_url() . "admin.php?page=oauth2-connect";
-    $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
-
-    $response = wp_remote_post(BLOGIFY_SERVER_BASEURL . 'oauth2/v1/token',
-        [
-            'body' => [
-                "grant_type" => "authorization_code",
-                "client_id" => $config['OAUTH2']['CLIENT_ID'],
-                "client_secret" => $config['OAUTH2']['CLIENT_SECRET'],
-                "redirect_uri" => $redirect_uri,
-                "code" => $auth_code,
-            ],
-            'timeout' => 10,
-        ]
-    );
+        'timeout' => 10,
+    ]);
 
     if (is_wp_error($response)) {
         throw new \Exception(esc_textarea($response->get_error_message()));
     }
 
-    if (2 !== intdiv(wp_remote_retrieve_response_code($response), 100)) {
-        throw new \Exception(
-            implode(' ',
-                [
-                    'Failed to get access token:',
-                    'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
-                    'because of:',
-                    esc_textarea(
-                        print_r(
-                            json_decode(
-                                wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR
-                            ),
-                            true
-                        )
-                    ),
-                ]
-            )
-        );
+    if (2 === intdiv(wp_remote_retrieve_response_code($response), 100)) {
+        return true;
+    } else {
+        return false;
     }
-
-    return json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR);
-
-}
-
-function get_oauth2_tokens_from_refresh_token(string $refresh_token): array
-{
-
-    $config = parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED);
-    $response = wp_remote_post(BLOGIFY_SERVER_BASEURL . 'oauth2/v1/refresh',
-        [
-            'body' => [
-                "grant_type" => "refresh_token",
-                "client_id" => $config['OAUTH2']['CLIENT_ID'],
-                "client_secret" => $config['OAUTH2']['CLIENT_SECRET'],
-                "refresh_token" => $refresh_token,
-            ],
-            'timeout' => 10,
-        ]
-    );
-
-    if (is_wp_error($response)) {
-        throw new \Exception(esc_textarea($response->get_error_message()));
-    }
-
-    if (2 !== intdiv(wp_remote_retrieve_response_code($response), 100)) {
-        throw new \Exception(
-            implode(' ',
-                [
-                    'Failed to get access token:',
-                    'request failed with code ' . esc_textarea(wp_remote_retrieve_response_code($response)),
-                    'because of:',
-                    esc_textarea(
-                        print_r(
-                            json_decode(
-                                wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR
-                            ),
-                            true
-                        )
-                    ),
-                ]
-            )
-        );
-    }
-
-    return json_decode(wp_remote_retrieve_body($response), true, 512, JSON_THROW_ON_ERROR);
-}
-
-function save_oauth2_tokens(string $access_token, string $refresh_token, int $expires_in): void
-{
-    update_option('blogify_oauth2_tokens', [
-        'access' => $access_token,
-        'refresh' => $refresh_token,
-        'expires_at' => time() + $expires_in,
-    ], false);
 }
 
 function get_access_token(): string
 {
-    $tokens = get_option('blogify_oauth2_tokens', null);
+    $access_token = get_option('blogify_access_token', null);
 
-    if (!$tokens) {
-        throw new \Exception('No blogify oauth2 tokens found: option is does not exist');
+    if (!$access_token) {
+        throw new \Exception('No blogify access token found: option is does not exist');
     }
 
-    if (time() >= $tokens['expires_at']) {
-        $new_tokens = get_oauth2_tokens_from_refresh_token($tokens['refresh']);
-        save_oauth2_tokens($new_tokens['access_token'], $new_tokens['refresh_token'], $new_tokens['expires_in']);
-        return $new_tokens['access_token'];
-    }
-
-    return $tokens['access'];
+    return $access_token;
 
 }
 
-function register_publish_route_with_blogify(): void
+function register_publish_route_with_blogify(string $access_token): void
 {
     $response = wp_remote_post(
         BLOGIFY_SERVER_BASEURL . 'wordpressorg/subscribe',
@@ -152,7 +48,7 @@ function register_publish_route_with_blogify(): void
                 'webhook' => site_url() . "?secret=" . get_option('blogify_client_secret'),
             ],
             'headers' => [
-                'Authorization' => 'Bearer ' . get_access_token(),
+                'Authorization' => 'Bearer ' . $access_token,
             ],
             'timeout' => 10,
         ]

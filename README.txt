@@ -8,7 +8,7 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Seamlessly publish AI-generated blog posts from Blogify.ai to your WordPress site with ease, enhancing content management and SEO optimization in a few clicks.
+Seamlessly publish AI-generated blog posts from Blogify.ai to your WordPress site
 
 == Description ==
 

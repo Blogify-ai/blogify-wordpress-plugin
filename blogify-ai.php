@@ -2,7 +2,7 @@
 // بسم الله الرحمن الرحيم
 /**
  * Blogify-AI
- * 
+ *
  * @package           Blogify-AI
  * @author            Fida Waseque Choudhury
  * @copyright         PixelShadow
@@ -38,18 +38,17 @@ DEFINE('BLOGIFY_UI_COMPONENTS_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/components');
 
 DEFINE('BLOGIFY_INI_PATH', BLOGIFY_PLUGIN_DIR . 'blogify-ai.ini');
 DEFINE('BLOGIFY_SERVER_BASEURL', parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED)['BLOGIFY']['SERVER']);
+DEFINE('BLOGIFY_CLIENT_BASEURL', parse_ini_file(BLOGIFY_INI_PATH, true, INI_SCANNER_TYPED)['BLOGIFY']['CLIENT']);
 
 DEFINE('BLOGIFY_ASSETS_URL', plugins_url('/admin/assets/', __FILE__));
 DEFINE('BLOGIFY_IMAGES_URL', BLOGIFY_ASSETS_URL . 'images/');
 DEFINE('BLOGIFY_CSS_URL', BLOGIFY_ASSETS_URL . 'css/');
 DEFINE('BLOGIFY_JS_URL', BLOGIFY_ASSETS_URL . 'js/');
 
+// All hooks
+require_once BLOGIFY_PLUGIN_DIR . 'admin/actions/index.php';
 
-require_once BLOGIFY_PLUGIN_DIR . 'admin/actions/rest.php';
-
-
-
-if (get_option('blogify_oauth2_tokens', null))/* This branch executes when the user has already connected this site to Blogify.ai */ {
+if (get_option('blogify_access_token', null)) /* This branch executes when the user has already connected this site to Blogify.ai */{
 
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($actions) {
         $actions[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=blogify-ai')) . '">Dashboard</a>';
@@ -90,24 +89,12 @@ if (get_option('blogify_oauth2_tokens', null))/* This branch executes when the u
             fn() => require_once BLOGIFY_UI_PAGES_DIR . 'subscription.php',
         )
     );
-} else /* This branch executes when the user has not yet connected this site with his Blogify.ai account */ {
+} else /* This branch executes when the user has not yet connected this site with his Blogify.ai account */{
 
     add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($actions) {
-        $actions[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=oauth2-connect')) . '">Connect this site to Blogify.ai</a>';
+        $actions[] = '<a href="' . esc_url(get_admin_url(null, 'options-general.php?page=blogify')) . '">Connect this site to Blogify.ai</a>';
         return $actions;
     });
-
-    
-    add_action(
-        'admin_menu', fn() => add_menu_page(
-            'Connect to Blogify!',
-            'Blogify-AI 📝',
-            'manage_options',
-            'oauth2-connect',
-            fn() => require_once BLOGIFY_UI_PAGES_DIR . 'redirect.php',
-            BLOGIFY_IMAGES_URL . 'icons/blogify-navigation.svg',
-        )
-    );
 }
 
 add_action(
@@ -156,4 +143,4 @@ add_action(
 );
 
 // This is intentional to allow users to reset their connection with their Blogify.ai account and start over again without having to delete the plugin.
-add_action("deactivate_" . plugin_basename(__FILE__), fn() => delete_option('blogify_oauth2_tokens'));
+add_action("deactivate_" . plugin_basename(__FILE__), fn() => delete_option('blogify_access_token'));
