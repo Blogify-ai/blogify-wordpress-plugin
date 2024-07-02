@@ -24,7 +24,7 @@ $user_details = blogify_get_user_details();
                     Credits: <?php echo esc_html( $user_details['currentCredits'] ); ?>
                 </a>
             </span>
-            <a href='https://blogify.ai/dashboard/settings' target="_blank">
+            <a href=<?php echo esc_url(get_admin_url() . 'options-general.php?page=blogify'); ?> target="_blank">
                 <img class="blogify-header-icon" alt="Settings" src="<?php echo esc_url(BLOGIFY_IMAGES_URL);?>icons/settings-gear.svg" />
             </a>
             <img class="blogify-header-icon" hidden alt="Notification" src="<?php echo esc_url(BLOGIFY_IMAGES_URL);?>icons/notification-bell.svg" />
