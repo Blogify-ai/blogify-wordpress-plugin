@@ -36,7 +36,6 @@ DEFINE('BLOGIFY_PLUGIN_DIR', plugin_dir_path(__FILE__));
 DEFINE('BLOGIFY_UI_PAGES_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/');
 DEFINE('BLOGIFY_UI_COMPONENTS_DIR', BLOGIFY_PLUGIN_DIR . 'admin/ui/components');
 
-DEFINE('BLOGIFY_INI_PATH', BLOGIFY_PLUGIN_DIR . 'blogify-ai.ini');
 DEFINE('BLOGIFY_SERVER_BASEURL',  "https://api.blogify.ai/");
 DEFINE('BLOGIFY_CLIENT_BASEURL',  "https://blogify.ai/");
 

@@ -13,5 +13,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dashboard Page
 - Subscription Page
 - All Blogs Page with pagination
-- Blog as Post Type
 - Access Token Based Authorization
