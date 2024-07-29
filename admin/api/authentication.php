@@ -39,7 +39,7 @@ function blogify_get_access_token(): string
 
 }
 
-function blogify_register_publish_route_with_blogify(string $access_token): void
+function blogify_register_publish_route(string $access_token): void
 {
     $response = wp_remote_post(
         BLOGIFY_SERVER_BASEURL . 'wordpressorg/subscribe',

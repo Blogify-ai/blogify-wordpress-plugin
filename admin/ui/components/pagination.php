@@ -38,7 +38,7 @@ function blogify_determine_page_navigation_bar(int $number_of_pages, int $curren
     ];
 }
 
-function blogify_page_navigation_bar(int $number_of_pages, int $current_page ) {
+function blogify_page_navigation_bar(int $number_of_pages, int $current_page ): void {
     $navigation_bar = blogify_determine_page_navigation_bar($number_of_pages, $current_page);
 ?>
     <span class='blogify-page-numbers'>
@@ -66,7 +66,7 @@ function blogify_page_navigation_bar(int $number_of_pages, int $current_page ) {
     </span>
 <?php }
 
-function blogify_page_info(int $total_blogs, int $current_page, int $page_size, int $total_pages) {
+function blogify_page_info(int $total_blogs, int $current_page, int $page_size, int $total_pages): void {
     $starting_blog = ($current_page - 1) * $page_size + 1;
     $ending_blog = $current_page === $total_pages ? $total_blogs :  $starting_blog + $page_size - 1;
     ?>    
@@ -78,7 +78,7 @@ function blogify_page_info(int $total_blogs, int $current_page, int $page_size, 
 <?php
 }
 
-function blogify_pagination(int $current_page, int $total_blogs, int $page_size, int $total_pages, string $nonce) {
+function blogify_pagination(int $current_page, int $total_blogs, int $page_size, int $total_pages, string $nonce): void {
     $page= 'blogify-all-blogs';
     ?>
     <form method='GET' action='<?php echo esc_url(admin_url( "admin.php" )) ?>'>

@@ -41,8 +41,8 @@ add_action('admin_init', function () {
             . esc_url(get_admin_url(null, 'admin.php?page=blogify-ai'))
             ."'>Head over to Blogify-AI Dashboard</a>";
 
-            if(validate_token($value)) {
-                 register_publish_route_with_blogify($value);
+            if(blogify_validate_token($value)) {
+                 blogify_register_publish_route($value);
                 
                 add_settings_error(
                     'blogify_access_token',
@@ -63,7 +63,6 @@ add_action('admin_init', function () {
         'show_in_rest' => false,
     ]);
 
-    // Add settings section
     add_settings_section(
         'blogify_section',
         'Credentials',
@@ -79,7 +78,6 @@ add_action('admin_init', function () {
         'blogify'
     );
 
-    // Add settings fields
     add_settings_field(
         'blogify_access_token',
         'Blogify Access Token',
