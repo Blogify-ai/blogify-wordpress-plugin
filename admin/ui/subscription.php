@@ -25,10 +25,10 @@ $user_details = blogify_get_user_details();
                         <span class="blogify-info"></span>
                     </span>
                     <span class="blogify-right">
-                        <a href='https://blogify.ai/dashboard/transaction-history' target="_blank">
+                        <a href="<?= esc_url(BLOGIFY_CLIENT_BASEURL . 'dashboard/transaction-history') ?>" target="_blank">
                             <button class="blogify-primary">Transaction History</button>
                         </a>
-                        <a href='https://blogify.ai/dashboard/subscription' target="_blank">
+                        <a href="<?= esc_url(BLOGIFY_CLIENT_BASEURL . 'dashboard/subscription') ?>" target="_blank">
                             <button class="blogify-primary">Upgrade Subscription</button>
                         </a>
                     </span>
