@@ -85,7 +85,7 @@ function blogify_pagination(int $current_page, int $total_blogs, int $page_size,
         <input type='hidden' name='page' value='<?php echo esc_attr($page)?>' />
         <input type='hidden' name='blogify-pagination-nonce' value='<?php echo esc_attr($nonce)?>' />
         <span class='blogify-pagination'>    
-            <?php blogify_page_navigation_bar($total_pages, $current_page, $image_base) ?>
+            <?php blogify_page_navigation_bar($total_pages, $current_page) ?>
             <?php blogify_page_info($total_blogs, $current_page, $page_size, $total_pages) ?>
         </span>
     </form>
