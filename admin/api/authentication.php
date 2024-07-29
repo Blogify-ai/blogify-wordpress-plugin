@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-function validate_token(string $token): bool
+function blogify_validate_token(string $token): bool
 {
      $response = wp_remote_get(BLOGIFY_SERVER_BASEURL . 'wordpressorg/token/validate', [
         'headers' => [
@@ -27,7 +27,7 @@ function validate_token(string $token): bool
     }
 }
 
-function get_access_token(): string
+function blogify_get_access_token(): string
 {
     $access_token = get_option('blogify_access_token', null);
 
@@ -39,7 +39,7 @@ function get_access_token(): string
 
 }
 
-function register_publish_route_with_blogify(string $access_token): void
+function blogify_register_publish_route_with_blogify(string $access_token): void
 {
     $response = wp_remote_post(
         BLOGIFY_SERVER_BASEURL . 'wordpressorg/subscribe',

@@ -10,23 +10,23 @@ function blogify_blog_item(string $id, string $title, ?string $cover_image, stri
         <section class="blogify-item">
             <span class="blogify-left">
                 <img class="blogify-blog-cover" alt="Blog Cover"
-                    src="<?= esc_url($cover_image?: BLOGIFY_IMAGES_URL . 'logos/blogify-logo-black.png') ?>"
+                    src="<?php echo esc_url($cover_image?: BLOGIFY_IMAGES_URL . 'logos/blogify-logo-black.png') ?>"
                 />
                 <span class="blogify-blog-info">
                     <span class="blogify-blog-title">
-                        <?= esc_html($title ?: 'Failed Blog') ?>
+                        <?php echo esc_html($title ?: 'Failed Blog') ?>
                     </span>
                     <span class="blogify-blog-stats">
-                        <?= ucfirst($publish_status)?>
-                        <?= $word_count === null ? "" : " ·  $word_count words" ?>
+                        <?php echo esc_html(ucfirst($publish_status)) ?>
+                        <?php echo esc_html($word_count === null ? "" : " ·  $word_count words") ?>
                     </span>
                 </span>
             </span>
             <span class="blogify-right">
-                <a href="<?= esc_url(BLOGIFY_CLIENT_BASEURL . "dashboard/blogs/$id") ?>" target="_blank" >
+                <a href="<?php echo esc_url(BLOGIFY_CLIENT_BASEURL . "dashboard/blogs/$id") ?>" target="_blank" >
                     <button type="button" class="blogify-secondary">View</button>
                 </a>
-                <a href="<?= esc_url(BLOGIFY_CLIENT_BASEURL . "dashboard/blogs/$id/edit") ?>" target="_blank" >
+                <a href="<?php echo esc_url(BLOGIFY_CLIENT_BASEURL . "dashboard/blogs/$id/edit") ?>" target="_blank" >
                     <button type="button" class="blogify-secondary">Edit</button>
                 </a>
             </span>

@@ -9,8 +9,8 @@ if (!defined('ABSPATH')) {
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/blog.php';
 
-$page_number = wp_verify_nonce($_GET['blogify-pagination-nonce'] ?? null, 'blogify-pagination') ? $_GET['page-number'] : 1;
-$blogs = get_blogs($page_number, 20);
+$page_number = sanitize_text_field( wp_unslash(wp_verify_nonce($_GET['blogify-pagination-nonce'] ?? null)), 'blogify-pagination') && is_numeric($_GET['page-number'])? $_GET['page-number'] : 1;
+$blogs = blogify_get_blogs($page_number, 20);
 
 ?>
 
@@ -24,10 +24,10 @@ $blogs = get_blogs($page_number, 20);
                         <span class="blogify-title">My Blogs</span>
                     </span>
                     <span class="blogify-right">
-                        <a href="<?= esc_url(BLOGIFY_CLIENT_BASEURL . 'dashboard/blogs') ?>" target="_blank">
+                        <a href="<?php echo esc_url(BLOGIFY_CLIENT_BASEURL . 'dashboard/blogs') ?>" target="_blank">
                             <button type="button" class="blogify-primary">View All</button>
                         </a>
-                        <a href="<?= esc_url(BLOGIFY_CLIENT_BASEURL .'dashboard/blogs/select-source') ?>" target="_blank">
+                        <a href="<?php echo esc_url(BLOGIFY_CLIENT_BASEURL .'dashboard/blogs/select-source') ?>" target="_blank">
                             <button type="button" class="blogify-primary">Create</button>
                         </a>
                     </span>

@@ -9,8 +9,8 @@ if (!defined('ABSPATH')) {
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/blog.php';
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 
-$counts = get_publish_status_count();
-$blogs = get_blogs(1, 5);
+$counts = blogify_get_publish_status_count();
+$blogs = blogify_get_blogs(1, 5);
 $totalBlogCount = $blogs['pagination']['totalResults'];
 
 
@@ -23,8 +23,8 @@ $totalBlogCount = $blogs['pagination']['totalResults'];
         <article class="blogify-status-bar">
             <?php foreach($counts as $publish_status => $count): ?>
                 <article class='blogify-status-card'>
-                    <span class='blogify-title'> <?= esc_html(ucfirst($publish_status)) ?> </span>
-                    <span class='blogify-value'> <?= esc_html($count) ?> </span>
+                    <span class='blogify-title'> <?php echo esc_html(ucfirst($publish_status)) ?> </span>
+                    <span class='blogify-value'> <?php echo esc_html($count) ?> </span>
                     <span class='blogify-info'> <span>
                 </article>
             <?php endforeach; ?>
@@ -35,10 +35,10 @@ $totalBlogCount = $blogs['pagination']['totalResults'];
                         <span class="blogify-title">My Blogs</span>
                     </span>
                     <span class="blogify-right">
-                        <a href="<?= esc_url(get_admin_url() . 'admin.php?page=blogify-all-blogs') ?>">
+                        <a href="<?php echo esc_url(get_admin_url() . 'admin.php?page=blogify-all-blogs') ?>">
                             <button type="button" class="blogify-primary">View All</button>
                         </a>
-                        <a href= "<?= esc_url(BLOGIFY_CLIENT_BASEURL . 'dashboard/blogs/select-source') ?>" target="_blank">
+                        <a href= "<?php echo esc_url(BLOGIFY_CLIENT_BASEURL . 'dashboard/blogs/select-source') ?>" target="_blank">
                             <button type="button" class="blogify-primary">Create</button>
                         </a>
                     </span>

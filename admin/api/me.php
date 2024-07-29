@@ -22,7 +22,7 @@ function blogify_get_user_details(): array
         BLOGIFY_SERVER_BASEURL . "public-api/v1/me",
         [
             'headers' => [
-                'Authorization' => sprintf('Bearer %s', get_access_token())
+                'Authorization' => sprintf('Bearer %s', blogify_get_access_token())
             ],
             'timeout' => 10,
         ]

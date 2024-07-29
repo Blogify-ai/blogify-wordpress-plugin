@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-function get_blogs(int $page_number, int $page_size, ?string $publish_status = null): array
+function blogify_get_blogs(int $page_number, int $page_size, ?string $publish_status = null): array
 {
     $response = wp_remote_get(
         BLOGIFY_SERVER_BASEURL . "public-api/v1/blogs?" . http_build_query([
@@ -20,7 +20,7 @@ function get_blogs(int $page_number, int $page_size, ?string $publish_status = n
         ]),
         [
             'headers' => [
-                'Authorization' => sprintf('Bearer %s', get_access_token()),
+                'Authorization' => sprintf('Bearer %s', blogify_get_access_token()),
             ],
             'timeout' => 10,
         ]
@@ -40,14 +40,14 @@ function get_blogs(int $page_number, int $page_size, ?string $publish_status = n
     return $blogs;
 }
 
-function get_publish_status_count(): array
+function blogify_get_publish_status_count(): array
 {    
     $statuses= ['draft', 'scheduled', 'published'];
 
     $results = \Requests::request_multiple(array_map(fn (string $status): array => [
         'type' => \Requests::GET,
         'url' => BLOGIFY_SERVER_BASEURL . "public-api/v1/blogs?publish-status=$status",
-        'headers' => ['Authorization' => sprintf('Bearer %s', get_access_token())],
+        'headers' => ['Authorization' => sprintf('Bearer %s', blogify_get_access_token())],
         'timeout' => 10,
     ],
     array_combine($statuses, $statuses)));

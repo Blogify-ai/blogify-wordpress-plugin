@@ -124,19 +124,9 @@ add_action(
             ['blogify-theme', 'blogify-buttons'], BLOGIFY_VERSION
         );
         wp_enqueue_style(
-            'blogify-category-list',
-            BLOGIFY_CSS_URL . 'category-list.css',
-            ['blogify-theme', 'blogify-buttons'], BLOGIFY_VERSION
-        );
-        wp_enqueue_style(
             'blogify-pagination',
             BLOGIFY_CSS_URL . 'pagination.css',
             ['blogify-theme', 'blogify-buttons'], BLOGIFY_VERSION
-        );
-        wp_enqueue_style(
-            'blogify-redirect',
-            BLOGIFY_CSS_URL . 'redirect.css',
-            [], BLOGIFY_VERSION
         );
     }
 );
