@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/authentication.php';
 require_once BLOGIFY_PLUGIN_DIR . 'admin/api/blog.php';
 
-$page_number = sanitize_text_field( wp_unslash(wp_verify_nonce($_GET['blogify-pagination-nonce'] ?? null)), 'blogify-pagination') && is_numeric($_GET['page-number'])? $_GET['page-number'] : 1;
+$page_number = sanitize_text_field(wp_unslash(wp_verify_nonce($_GET['blogify-pagination-nonce'] ?? null)), 'blogify-pagination') && is_numeric(sanitize_text_field(wp_unslash($_GET['page-number'])))? sanitize_text_field(wp_unslash($_GET['page-number'])) : 1;
 $blogs = blogify_get_blogs($page_number, 20);
 
 ?>
