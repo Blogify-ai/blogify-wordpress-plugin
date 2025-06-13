@@ -1,3 +1,1 @@
-# Blogify WordPress Plugin 2.0
-
-[Tutorial Link](https://blogify.ai/login?redirectTo=/dashboard/settings/wordpressorg-connect)
+This Repo is out of date, the project has moved to SVN, it should be deleted
