@@ -2,8 +2,8 @@
 Contributors: u3kkasha
 Tags: AI Blogging, Automated Post Creation, Video to Blog, Audio to Blog, Blogging Tools
 Requires at least: 6.0
-Tested up to: 6.8
-Stable tag: 1.3.0
+Tested up to: 6.9
+Stable tag: 1.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
