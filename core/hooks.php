@@ -85,11 +85,25 @@ function register_actions_filter(): void
     add_filter(
         'plugin_action_links_' . BLOGIFY_PLUGIN_BASENAME,
         function ($actions) {
-            [$format, $value] = get_option(BLOGIFY_ACCESS_TOKEN_OPTION_HANDLE) ? ['<a href="%s">Dashboard</a>', 'admin.php?page=blogify-ai'] : ['<a href="%s">Connect this site to Blogify.ai</a>', 'options-general.php?page=blogify'];
-            $actions[] = sprintf(
-                $format ,
-                esc_url(get_admin_url(null, $value)),
-            );
+
+
+            $has_token = (bool) get_option(BLOGIFY_ACCESS_TOKEN_OPTION_HANDLE);
+            $display_admin_pages = (bool) get_option(BLOGIFY_DISPLAY_ADMIN_MENU_PAGES_HANDLE, true);
+
+            if( ! $has_token) {
+                $format = '<a href="%s">Connect this site to Blogify.ai</a>';
+                $value = 'options-general.php?page=blogify';
+            } else {
+                if( $display_admin_pages) {
+                    $format = '<a href="%s">Dashboard</a>';
+                    $value = 'admin.php?page=blogify-ai';
+                } else {
+                    $format = '<a href="%s">Settings</a>';
+                    $value = 'options-general.php?page=blogify';
+                }
+            }
+
+            $actions[] = sprintf($format, esc_url(get_admin_url(null, $value)));
             return $actions;
         }
     );
