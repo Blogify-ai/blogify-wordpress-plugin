@@ -215,7 +215,7 @@ function register_settings_hooks(): void
             'blogify_section',
             'Credentials',
             function () {
-                $tutorial_link = BLOGIFY_CLIENT_BASEURL . 'dashboard/settings/wordpressorg-connect';
+                $tutorial_link = BLOGIFY_CLIENT_BASEURL . 'dashboard/integrations/wordpressorg';
                 ?>
 
             <p>Configure your Blogify.ai credentials.
