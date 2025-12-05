@@ -1,0 +1,28 @@
+div.blogify span.blogify-pagination {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    flex-direction: column;
+    gap:16px;
+}
+
+div.blogify span.blogify-pagination span.blogify-page-numbers {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    gap: 5px;
+}
+
+div.blogify span.blogify-pagination span.blogify-page-numbers img.blogify-arrow-jump{
+    height: 10px;
+}
+
+div.blogify span.blogify-pagination span.blogify-page-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--blogify-soft-text-color);
+}

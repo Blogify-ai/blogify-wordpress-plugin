@@ -1,0 +1,40 @@
+div.blogify header {
+    display: flex;
+    align-items: center;
+}
+
+div.blogify header #blogify-banner {
+    height: 28px;
+}
+
+div.blogify header img.blogify-header-icon {
+    width: 20px;
+    height: 20px;
+}
+
+div.blogify header #blogify-credits {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    font-size: 11px;
+    padding: 5px;
+    font-weight: 600;
+    border-radius: 18px;
+    background-color: var(--blogify-primary-color);
+}
+
+div.blogify header #blogify-credits-logo {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: solid 1.5px #fff;
+}
+
+div.blogify header #blogify-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: solid 1.5px var(--blogify-primary-color);
+}

@@ -1,0 +1,39 @@
+:root {
+  --blogify-primary-color: #f2460d;
+  --blogify-primary-hover-color: #fb561f;
+  --blogify-primary-link-color: #f2460d;
+  --blogify-border-color: #e3dbd9;
+  --blogify-soft-text-color:  #93766c;
+}
+
+div.blogify {
+  background-color: white;
+  padding: 20px;
+}
+
+div.blogify main {
+  padding: 20px;
+  gap: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+div.blogify *>.blogify-left {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+}
+
+div.blogify *>.blogify-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+div.blogify * .blogify-left> * {
+  margin-right: 10px;
+}
+
+div.blogify * .blogify-right> * {
+  margin-left: 10px;
+}
