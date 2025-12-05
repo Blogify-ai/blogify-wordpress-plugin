@@ -181,31 +181,6 @@ function register_settings_hooks(): void
         register_setting('blogify', BLOGIFY_ACCESS_TOKEN_OPTION_HANDLE, [
             'type' => 'string',
             'sanitize_callback' => function ($value) {
-                if($value === get_option(BLOGIFY_ACCESS_TOKEN_OPTION_HANDLE, null)) {
-                    return sanitize_text_field($value);
-                }
-                $message = "Connected to Blogify.ai successfully ✅" ;
-                $dashboard_link =  "<br />" . "<a href='"
-                    . esc_url(get_admin_url(null, 'admin.php?page=blogify-ai'))
-                    . "'>Head over to Blogify-AI Dashboard</a>";
-
-                if (blogify_validate_token($value)) {
-                    blogify_register_publish_route($value);
-
-                    add_settings_error(
-                        BLOGIFY_ACCESS_TOKEN_OPTION_HANDLE,
-                        'token-success',
-                        get_option(BLOGIFY_DISPLAY_ADMIN_MENU_PAGES_HANDLE) ? $message . $dashboard_link : $message,
-                        'success',
-                    );
-                } else {
-                    add_settings_error(
-                        BLOGIFY_ACCESS_TOKEN_OPTION_HANDLE,
-                        'token-failure',
-                        "Invalid Token ❌, Please try again.",
-                        'error'
-                    );
-                }
                 return sanitize_text_field($value);
             },
             'show_in_rest' => false,
@@ -298,6 +273,18 @@ function register_settings_hooks(): void
         );
 
     });
+
+    add_filter(
+        'pre_update_option_' . BLOGIFY_ACCESS_TOKEN_OPTION_HANDLE,
+        function ($value, $old_value) {
+            if ( $old_value !== $value) {
+                blogify_register_publish_route($value);
+            }
+            return $value;
+        },
+        10,
+        3
+    );
 }
 
 /**
