@@ -15,7 +15,7 @@
  * Plugin Name:       Blogify-AI
  * Plugin URI:        https://blogify.ai/
  * Description:       Seamlessly publish AI-generated blog posts from Blogify.ai to your WordPress site with ease, enhancing content management and SEO optimization in a few clicks.
- * Version:           1.3.1
+ * Version:           1.3.2
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            PixelShadow
@@ -34,10 +34,10 @@ if (!defined('ABSPATH')) {
 }
 
 // Constants
-DEFINE('BLOGIFY_SERVER_BASEURL',  "http://localhost:7777/");
-DEFINE('BLOGIFY_CLIENT_BASEURL',  "https://localhost:7000/");	
+DEFINE('BLOGIFY_SERVER_BASEURL',  "https://api.blogify.ai/");
+DEFINE('BLOGIFY_CLIENT_BASEURL',  "https://blogify.ai/");	
 
-DEFINE('BLOGIFY_VERSION', '1.3.1');
+DEFINE('BLOGIFY_VERSION', '1.3.2');
 DEFINE('BLOGIFY_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 DEFINE('BLOGIFY_PLUGIN_DIR', plugin_dir_path(__FILE__));
